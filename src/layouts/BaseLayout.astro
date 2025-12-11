@@ -35,13 +35,55 @@ console.log(url, "==============url");
           if (actual === "dark") document.documentElement.classList.add("dark");
           document.documentElement.dataset.theme = actual;
         } catch {}
+
+        const last = location.pathname.lastIndexOf("/");
+        const first = location.pathname.indexOf("/");
+        const substring_tag = location.pathname.substring(first, last);
+
+        const pathname = location.pathname.replace(substring_tag, "");
+
+        // console.log(pathname, "pathname");
+
+        window.requestAnimationFrame(() => {
+          const names = document.getElementsByName("link");
+
+          names.forEach((ele) => {
+            const href = ele.getAttribute("href");
+            if (href === pathname) {
+              if (ele) {
+                ele.style.color = "#2996f5";
+                ele.style.fontWeight = 600;
+                if (ele.nextElementSibling) {
+                  ele.nextElementSibling.style.opacity = 1;
+                }
+              }
+            }
+
+            // pathname === "/teach-dx" || pathname === "/teach-yh" || pathname === "/teach-mk"
+            if (pathname.includes("/teach-")) {
+              if (href === pathname) {
+                const node = names.item(5);
+                if (node) {
+                  node.style.color = "#2996f5";
+                  node.style.fontWeight = 600;
+                  if (node.nextElementSibling) {
+                    node.nextElementSibling.style.opacity = 1;
+                  }
+                }
+              }
+            }
+
+            // console.log(pathname, "href1111");
+            // console.dir(ele.getAttribute("href"), "names");
+          });
+        });
       })();
     </script>
   </head>
   <body class="h-[100%] font-sans antialiased text-gray-800">
     <header class="h-[70px] fixed left-0 right-0 z-100">
       <div
-        class="container lg:max-w-[1280px] mx-auto p-4 flex items-center justify-between mx-auto"
+        class="container lg:max-w-[1280px] mx-auto py-4 flex items-center justify-between mx-auto"
       >
         <h1
           title="易换官网：便捷快速，安全可靠，全球多国币种，一站式解决！轻松畅享全球支付与兑换服务~"
@@ -58,12 +100,144 @@ console.log(url, "==============url");
           </a>
         </h1>
 
-        <a href="/download">下载APP</a>
-        <a href="/aboutus">关于我们</a>
-        <a href="/service">易换服务</a>
-        <a href="/contactus">联系我们</a>
-        <span class="text-[#1f2937] cursor-pointer">新手教程</span>
-        <a href="/question">常见问题</a>
+        <div class="group flex flex-col items-center justify-center">
+          <a
+            href="/"
+            name="link"
+            class="group-hover:text-[#2996f5] group-hover:font-600"
+          >
+            首页
+          </a>
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="group-hover:opacity-100 opacity-0"
+          />
+        </div>
+
+        <div class="group flex flex-col items-center justify-center">
+          <a
+            href="/download"
+            name="link"
+            class="group-hover:text-[#2996f5] group-hover:font-600"
+          >
+            下载APP
+          </a>
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="group-hover:opacity-100 opacity-0"
+          />
+        </div>
+
+        <div class="group flex flex-col items-center justify-center">
+          <a
+            href="/aboutus"
+            name="link"
+            class="group-hover:text-[#2996f5] group-hover:font-600"
+          >
+            关于我们
+          </a>
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="group-hover:opacity-100 opacity-0"
+          />
+        </div>
+
+        <div class="group flex flex-col items-center justify-center">
+          <a
+            href="/service"
+            name="link"
+            class="group-hover:text-[#2996f5] group-hover:font-600"
+          >
+            易换服务
+          </a>
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="group-hover:opacity-100 opacity-0"
+          />
+        </div>
+
+        <div class="group flex flex-col items-center justify-center">
+          <a
+            href="/contactus"
+            name="link"
+            class="group-hover:text-[#2996f5] group-hover:font-600"
+          >
+            联系我们
+          </a>
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="group-hover:opacity-100 opacity-0"
+          />
+        </div>
+
+        <div class="group relative flex flex-col items-center justify-center">
+          <span
+            class="text-[#1f2937] cursor-pointer group-hover:text-[#2996f5] group-hover:font-600"
+            name="link"
+          >
+            新手教程
+          </span>
+
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          />
+
+          <ul
+            class="absolute left-[-40px] bottom-[-170px]
+            w-[154px]
+            bg-white
+            py-[10px]
+            shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+            flex flex-col
+            opacity-0 translate-y-2 pointer-events-none
+            group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto
+            transition-all duration-400 ease-out"
+          >
+            <a href="/teach-yh" name="link">
+              <li
+                class="p-[10px] flex flex-1 items-center text-[#7281a2] text-[14px] hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+              >
+                易换APP使用教程
+              </li>
+            </a>
+            <a href="/teach-dx" name="link">
+              <li
+                class="p-[10px] flex flex-1 items-center text-[#7281a2] text-[14px] hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+              >
+                德信教程
+              </li>
+            </a>
+            <a href="/teach-mk" name="link">
+              <li
+                class="p-[10px] flex flex-1 items-center text-[#7281a2] text-[14px] hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+              >
+                MK教程
+              </li>
+            </a>
+          </ul>
+        </div>
+
+        <div class="group flex flex-col items-center justify-center">
+          <a
+            name="link"
+            href="/question"
+            class="group-hover:text-[#2996f5] group-hover:font-600"
+          >
+            常见问题
+          </a>
+          <img
+            src="/assets/svg/header/hover.svg"
+            alt=""
+            class="group-hover:opacity-100 opacity-0"
+          />
+        </div>
 
         <nav class="flex items-center gap-3">
           <LangSwitcher />
@@ -111,10 +285,10 @@ console.log(url, "==============url");
         console.log(window.scrollY);
         const oHeader = document.querySelector("header");
         if (oHeader) {
-          if (window.scrollY >= 100) {
+          if (window.scrollY >= 0) {
             oHeader.style.backgroundColor = "#fff";
           } else {
-            oHeader.style.backgroundColor = "red";
+            oHeader.style.backgroundColor = "transparent";
           }
         }
       }, 100);

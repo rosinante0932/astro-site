@@ -24,6 +24,7 @@
                     </ul>
                 </span>
             </div>
+            <img src="/assets/svg/header/hover.svg" alt="" class="opacity-0" />
         </div>
 
         <!-- 移动端 -->
@@ -82,17 +83,17 @@ const onKeydown = (e: KeyboardEvent) => {
 }
 
 const changeLang = (url: string) => {
-     // 获取当前页面的查询参数
+    // 获取当前页面的查询参数
     const currentParams = new URLSearchParams(window.location.search)
-    
+
     // 解析目标 URL
     const targetUrl = new URL(url, window.location.origin)
-    
+
     // 将当前的查询参数添加到目标 URL
     currentParams.forEach((value, key) => {
         targetUrl.searchParams.set(key, value)
     })
-    
+
     window.open(targetUrl.toString(), '_self')
 }
 
