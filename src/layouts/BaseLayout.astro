@@ -3,6 +3,7 @@ import { resolveLocale, type Locale } from "@/configs/i18n.config";
 import BaseHead from "../components/BaseHead.astro";
 import LangSwitcher from "../components/LangSwitcher.astro";
 import VConsole from "../components/VConsole.astro";
+import Qrcode from "@/components/Qrcode.vue";
 const locale: Locale = resolveLocale(Astro.currentLocale);
 const { title, description } = Astro.props;
 const url = new URL(Astro.url);
@@ -12,7 +13,7 @@ console.log(Astro.url, "==========Astro.url");
 console.log(url, "==============url");
 ---
 
-<html lang={Astro.currentLocale} class="h-[100%]">
+<html lang={Astro.currentLocale} class="h-[100%] bg-[#f0f5f9]">
   <head>
     <BaseHead {title} {description} />
     <!-- 先执行首帧主题脚本 -->
@@ -60,9 +61,10 @@ console.log(url, "==============url");
             }
 
             // pathname === "/teach-dx" || pathname === "/teach-yh" || pathname === "/teach-mk"
-            if (pathname.includes("/teach-")) {
+            if (pathname.includes("/teach")) {
               if (href === pathname) {
                 const node = names.item(5);
+                console.dir(node, "node");
                 if (node) {
                   node.style.color = "#2996f5";
                   node.style.fontWeight = 600;
@@ -80,8 +82,8 @@ console.log(url, "==============url");
       })();
     </script>
   </head>
-  <body class="h-[100%] font-sans antialiased text-gray-800">
-    <header class="h-[70px] fixed left-0 right-0 z-100">
+  <body class="h-[100%] font-sans antialiased text-gray-800 overflow-x-hidden">
+    <header class="h-[70px] fixed left-0 right-0 z-100 bg-[#fff]">
       <div
         class="container lg:max-w-[1280px] mx-auto py-4 flex items-center justify-between mx-auto"
       >
@@ -109,7 +111,7 @@ console.log(url, "==============url");
             首页
           </a>
           <img
-            src="/assets/svg/header/hover.svg"
+            src="/assets/header/hover.svg"
             alt=""
             class="group-hover:opacity-100 opacity-0"
           />
@@ -124,7 +126,7 @@ console.log(url, "==============url");
             下载APP
           </a>
           <img
-            src="/assets/svg/header/hover.svg"
+            src="/assets/header/hover.svg"
             alt=""
             class="group-hover:opacity-100 opacity-0"
           />
@@ -139,7 +141,7 @@ console.log(url, "==============url");
             关于我们
           </a>
           <img
-            src="/assets/svg/header/hover.svg"
+            src="/assets/header/hover.svg"
             alt=""
             class="group-hover:opacity-100 opacity-0"
           />
@@ -154,7 +156,7 @@ console.log(url, "==============url");
             易换服务
           </a>
           <img
-            src="/assets/svg/header/hover.svg"
+            src="/assets/header/hover.svg"
             alt=""
             class="group-hover:opacity-100 opacity-0"
           />
@@ -169,59 +171,68 @@ console.log(url, "==============url");
             联系我们
           </a>
           <img
-            src="/assets/svg/header/hover.svg"
+            src="/assets/header/hover.svg"
             alt=""
             class="group-hover:opacity-100 opacity-0"
           />
         </div>
 
-        <div class="group relative flex flex-col items-center justify-center">
-          <span
-            class="text-[#1f2937] cursor-pointer group-hover:text-[#2996f5] group-hover:font-600"
-            name="link"
-          >
-            新手教程
-          </span>
+        <div class="flex items-center justify-center">
+          <div class="group relative inline-block">
+            <span
+              name="link"
+              class="text-[#1f2937] cursor-pointer group-hover:text-[#2996f5] group-hover:font-600"
+            >
+              新手教程
+            </span>
 
-          <img
-            src="/assets/svg/header/hover.svg"
-            alt=""
-            class="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-          />
+            <img
+              src="/assets/header/hover.svg"
+              alt=""
+              class="group-hover:opacity-100 opacity-0 mx-auto"
+            />
+            <ul
+              class="absolute top-[70px] left-[-40px]
+             w-[180px] bg-white py-[10px]
+             shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+             opacity-0 translate-y-2 pointer-events-none
+             group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto
+             transition-all duration-400 ease-out"
+            >
+              <li>
+                <a
+                  href="/teach-yh"
+                  name="link"
+                  class="block p-[10px] text-[#7281a2] text-[14px]
+                 hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+                >
+                  易换APP使用教程
+                </a>
+              </li>
 
-          <ul
-            class="absolute left-[-40px] bottom-[-170px]
-            w-[154px]
-            bg-white
-            py-[10px]
-            shadow-[0_10px_30px_rgba(0,0,0,0.12)]
-            flex flex-col
-            opacity-0 translate-y-2 pointer-events-none
-            group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto
-            transition-all duration-400 ease-out"
-          >
-            <a href="/teach-yh" name="link">
-              <li
-                class="p-[10px] flex flex-1 items-center text-[#7281a2] text-[14px] hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
-              >
-                易换APP使用教程
+              <li>
+                <a
+                  href="/teach-dx"
+                  name="link"
+                  class="block p-[10px] text-[#7281a2] text-[14px]
+                 hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+                >
+                  德信教程
+                </a>
               </li>
-            </a>
-            <a href="/teach-dx" name="link">
-              <li
-                class="p-[10px] flex flex-1 items-center text-[#7281a2] text-[14px] hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
-              >
-                德信教程
+
+              <li>
+                <a
+                  href="/teach-mk"
+                  name="link"
+                  class="block p-[10px] text-[#7281a2] text-[14px]
+                 hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+                >
+                  MK教程
+                </a>
               </li>
-            </a>
-            <a href="/teach-mk" name="link">
-              <li
-                class="p-[10px] flex flex-1 items-center text-[#7281a2] text-[14px] hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
-              >
-                MK教程
-              </li>
-            </a>
-          </ul>
+            </ul>
+          </div>
         </div>
 
         <div class="group flex flex-col items-center justify-center">
@@ -233,7 +244,7 @@ console.log(url, "==============url");
             常见问题
           </a>
           <img
-            src="/assets/svg/header/hover.svg"
+            src="/assets/header/hover.svg"
             alt=""
             class="group-hover:opacity-100 opacity-0"
           />
@@ -248,35 +259,60 @@ console.log(url, "==============url");
       <slot />
 
       <ul class="fixed right-10 bottom-[100px]">
-        <li class="mb-[20px]">
-          <img src="" alt="" class="w-[70px] h-[70px]" />
+        <li class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]">
+          <img
+            src="/assets/home/16.svg"
+            alt="telegram"
+            class="w-[70px] h-[70px]"
+          />
         </li>
-        <li class="mb-[20px]">
-          <img src="" alt="" class="w-[70px] h-[70px]" />
+        <li class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]">
+          <img
+            src="/assets/home/17.svg"
+            alt="客服链接"
+            class="w-[70px] h-[70px]"
+          />
         </li>
-        <li class="mb-[20px]">
-          <img src="" alt="" class="w-[70px] h-[70px]" />
+        <li
+          class="shadow-[0_16px_24px_0_rgba(19,78,238,0.2)] mb-[20px] rounded-[50%] shadow-[0_16px_24px_rgba(49,76,154,0.12)]
+         bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] w-[70px] h-[70px] flex items-center justify-center"
+        >
+          <img src="/assets/home/18.svg" alt="" class="w-[40px] h-[40px]" />
         </li>
       </ul>
     </main>
-    <footer
-      class="xs:hidden sm:hidden md:hidden lg:hidden xl:flex flex gap-10 items-center justify-between py-[34px] bg-[skyblue]"
-    >
-      <dl class="flex">
-        <dt class="w-[300px] flex items-center justify-center">
-          <img src="" alt="" class="w-[80px] h-[80px]" />
-        </dt>
-        <dd class="grid gap-5 grid-cols-4">
-          <a href="/">首页</a><a href="/aboutus">关于我们</a>
-          <a href="/contactus">联系我们</a>
-          <a href="/question">常见问题</a>
-          <a href="/download">下载APP</a><a href="/service">易换服务</a>
-          <span>新手教程</span>
-        </dd>
-      </dl>
-      <ul>
-        <img src="" alt="" class="w-[80px] h-[80px]" />
-      </ul>
+    <footer class="xs:hidden sm:hidden md:hidden lg:hidden xl:block bg-[#fff]">
+      <div
+        class="flex container lg:max-w-[1280px] mx-auto justify-between items-center"
+      >
+        <dl class="flex gap-10 items-center justify-between py-[34px]">
+          <dt class="w-[100px] flex items-center">
+            <img src="/assets/yhicon.png" alt="" class="w-[80px] h-[80px]" />
+          </dt>
+          <dd class="grid gap-x-20 gap-y-5 grid-cols-4">
+            <a href="/" name="link">首页</a>
+            <a href="/aboutus" name="link">关于我们</a>
+            <a href="/contactus" name="link">联系我们</a>
+            <a href="/question" name="link">常见问题</a>
+            <a href="/download" name="link">下载APP</a>
+            <a href="/service" name="link">易换服务</a>
+            <a href="/teach" name="link">新手教程</a>
+          </dd>
+        </dl>
+        <ul
+          class="bg-[linear-gradient(rgba(70,204,237,0.21),_rgb(77,165,247))] w-[120px] rounded-lg h-[130px] flex items-center justify-center flex-col"
+        >
+          <Qrcode
+            client:only
+            url="https://baidu.com"
+            size="100"
+            class="w-[70px] h-[70px] flex items-center justify-center bg-[#fff] mt-[20px]"
+          />
+          <p class="py-[3px]">
+            <span class="text-[14px] text-[#fff]">下载APP</span>
+          </p>
+        </ul>
+      </div>
     </footer>
     <script>
       import _ from "lodash-es";
@@ -285,7 +321,7 @@ console.log(url, "==============url");
         console.log(window.scrollY);
         const oHeader = document.querySelector("header");
         if (oHeader) {
-          if (window.scrollY >= 0) {
+          if (window.scrollY >= 1) {
             oHeader.style.backgroundColor = "#fff";
           } else {
             oHeader.style.backgroundColor = "transparent";

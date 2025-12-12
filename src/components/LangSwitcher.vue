@@ -24,7 +24,7 @@
                     </ul>
                 </span>
             </div>
-            <img src="/assets/svg/header/hover.svg" alt="" class="opacity-0" />
+            <img src="/assets/header/hover.svg" alt="" class="opacity-0" />
         </div>
 
         <!-- 移动端 -->

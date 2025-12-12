@@ -15,6 +15,7 @@ import service from "@/services/service.astro-fetch";
 import Httpservice from "@/services/service.http";
 import "@/assets/css/initial.css";
 import RetryButton from "@/components/RetryButton.vue";
+import Qrcode from "@/components/Qrcode.vue";
 
 const proxy = DOCKER_PROXY_IP; // 你的代理地址
 
@@ -190,189 +191,335 @@ try {
   <!-- pc -->
 
   <section
-    class="container lg:max-w-[1280px] mx-auto mt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block h-[800px] bg-[yellow] relative"
+    class="container lg:max-w-[1280px] mx-auto mt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block h-[800px] relative"
   >
-    <div class="translate-y-[100px]">
-      <img src="" alt="" class="w-[433px] h-[78px]" />
-      <p class="mt-[50px]">
-        <strong>便捷快速，安全可靠，全球多国币种，一站式解决！</strong>
-      </p>
-      <p>
-        <strong>轻松畅享全球支付与兑换服务~</strong>
-      </p>
+    <div class="translate-y-[100px] relative z-1">
+      <h2>
+        <img
+          src="/assets/home/h2.svg"
+          alt="易换一键货币兑换"
+          class="w-[433px] h-[78px]"
+        />
+      </h2>
+      <h3 class="mt-[35px] text-[#7281a2] text-[20px]">
+        便捷快速，安全可靠，全球多国币种，一站式解决！<br />
+        轻松畅享全球支付与兑换服务~
+      </h3>
     </div>
 
     <div class="flex translate-y-[150px]">
-      <button class="flex items-center justify-center bg-[red] py-2 p-4">
-        <img src="" alt="" class="w-[24px] h-[24px]" />
-        ios下载
+      <button
+        class="cursor-pointer flex text-[#fff] font-600 rounded-[40px] items-center justify-center py-3 px-8 bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]"
+      >
+        <img
+          src="/assets/home/iOS.svg"
+          alt="iOS下载"
+          class="w-[24px] h-[24px]"
+          alt="iOS下载"
+        />
+        <span class="pl-1 text-[#fff]">iOS下载</span>
       </button>
-      <button class="flex items-center justify-center bg-[red] py-2 px-4 ml-4">
-        <img src="" alt="" class="w-[24px] h-[24px]" />
-        安卓下载
+      <button
+        class="cursor-pointer flex text-[#fff] font-600 rounded-[40px] items-center justify-center py-3 px-8 ml-4 bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]"
+      >
+        <img
+          src="/assets/home/android.svg"
+          alt="安卓下载"
+          class="w-[24px] h-[24px]"
+          alt="安卓下载"
+        />
+        <span class="pl-1 text-[#fff]">安卓下载</span>
       </button>
     </div>
-    
-    <img src="" alt="" class="w-[1290px] h-[956px] absolute right-0 top-0" />
+
+    <img
+      src="/assets/home/01.png"
+      alt=""
+      class="absolute left-[432px] top-0 z-0"
+    />
 
     <div class="grid grid-cols-4 gap-4 absolute bottom-0 left-0 right-0">
-      <ul class="bg-[white] p-[30px] opacity-[0.8]">
-        <img src="" alt="" class="w-[64px] h-[64px]" />
-        <h3>一键充U 快速提U</h3>
+      <ul
+        class="p-[30px] rounded-[40px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/02.svg" alt="" class="w-[64px] h-[64px]" />
+        <h3 class="py-[20px]">
+          <span class="text-[24px] font-600 text-[#11254e]"
+            >一键充U 快速提U</span
+          >
+        </h3>
         <p>
-          <strong>安全无忧</strong>
+          <strong class="text-[16px] text-[#7281a2]">安全无忧</strong>
         </p>
       </ul>
-      <ul class="bg-[white] p-[30px] opacity-[0.8]">
-        <img src="" alt="" class="w-[64px] h-[64px]" />
-        <h3>充U提U 零手续费</h3>
+      <ul
+        class="p-[30px] rounded-[40px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/03.svg" alt="" class="w-[64px] h-[64px]" />
+        <h3 class="py-[20px]">
+          <span class="text-[24px] font-600 text-[#11254e]"
+            >充U提U 零手续费
+          </span>
+        </h3>
         <p>
-          <strong>至高立省15U/笔</strong>
+          <strong class="text-[16px] text-[#7281a2]">至高立省15U/笔</strong>
         </p>
       </ul>
-      <ul class="bg-[white] p-[30px] opacity-[0.8]">
-        <img src="" alt="" class="w-[64px] h-[64px]" />
-        <h3>超低换汇 极速到账</h3>
+      <ul
+        class="p-[30px] rounded-[40px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/04.svg" alt="" class="w-[64px] h-[64px]" />
+        <h3 class="py-[20px]">
+          <span class="text-[24px] font-600 text-[#11254e]">
+            超低换汇 极速到账
+          </span>
+        </h3>
         <p>
-          <strong>汇率比市面行情更优惠</strong>
+          <strong class="text-[16px] text-[#7281a2]"
+            >汇率比市面行情更优惠</strong
+          >
         </p>
       </ul>
-      <ul class="bg-[white] p-[30px] opacity-[0.8]">
-        <img src="" alt="" class="w-[64px] h-[64px]" />
-        <h3>支持多币种互换</h3>
-        <p><strong>丰富的币种选择满足您的需求</strong></p>
-      </ul>
-    </div>
-  </section>
-
-  <section
-    class="container lg:max-w-[1280px] mx-auto  pt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block gap-10 min-h-[654px] bg-[orange]"
-  >
-    <h2 class="flex items-center justify-center py-[20px]">易换业务优势</h2>
-
-    <div class="grid grid-cols-3 gap-40">
-      <ul class="flex flex-col items-center justify-center">
-        <img src="" alt="" class="w-[290px] h-[290px]" />
-        <p></p>
+      <ul
+        class="p-[30px] rounded-[40px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/05.svg" alt="" class="w-[64px] h-[64px]" />
+        <h3 class="py-[20px]">
+          <span class="text-[24px] font-600 text-[#11254e]"
+            >支持多币种互换
+          </span>
+        </h3>
         <p>
-          <strong class="text-[32px]">多重安全保障</strong>
-        </p>
-        <p>
-          <strong class="text-[24px] text-[#7281a2] font-400"
-            >有效保障您的资金安全
-          </strong>
-        </p>
-      </ul>
-      <ul class="flex flex-col items-center justify-center">
-        <img src="" alt="" class="w-[290px] h-[290px]" />
-        <p></p>
-        <p>
-          <strong class="text-[32px]">多重安全保障</strong>
-        </p>
-        <p>
-          <strong class="text-[24px] text-[#7281a2] font-400"
-            >有效保障您的资金安全
-          </strong>
-        </p>
-      </ul>
-      <ul class="flex flex-col items-center justify-center">
-        <img src="" alt="" class="w-[290px] h-[290px]" />
-        <p></p>
-        <p>
-          <strong class="text-[32px]">多重安全保障</strong>
-        </p>
-        <p>
-          <strong class="text-[24px] text-[#7281a2] font-400"
-            >有效保障您的资金安全
-          </strong>
+          <strong class="text-[16px] text-[#7281a2]"
+            >丰富的币种选择满足您的需求</strong
+          >
         </p>
       </ul>
     </div>
   </section>
 
   <section
-    class="container lg:max-w-[1280px] mx-auto  pt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block gap-10 min-h-[850px] bg-[green]"
+    class="container lg:max-w-[1280px] mx-auto pt-[150px] xs:hidden sm:hidden md:hidden lg:hidden xl:block gap-10 min-h-[654px]"
   >
-    <h2 class="flex items-center justify-center py-[20px]">为什么选择易换？</h2>
+    <h2 class="flex items-center justify-center py-[20px]">
+      <span class="text-[40px] text-[#11254e] font-600">易换业务优势</span>
+    </h2>
 
-    <div class="grid grid-cols-2 gap-20">
-      <ul class="flex items-center">
-        <img src="" alt="" class="w-[60px] h-[60px] mr-5" />
+    <div class="grid grid-cols-3 gap-30 mt-[20px]">
+      <ul class="flex flex-col items-center justify-center">
+        <img
+          src="/public/assets/home/06.png"
+          alt="多重安全保障"
+          class="w-[290px] h-[290px]"
+        />
+        <div class="relative w-[150px] h-[40px]">
+          <div
+            class="w-full h-full bg-[#66b2f3] rounded-tl-[20px] rounded-br-[20px] -skew-x-8 absulute"
+          >
+          </div>
+          <p
+            class="w-full h-full flex items-center justify-center absolute left-0 top-0"
+          >
+            <img src="/public/assets/home/no1.svg" alt="多重安全保障 icon" />
+            <span class="text-[#fff] text-[24px] font-600 pl-3">NO.01</span>
+          </p>
+        </div>
+        <h3 class="py-[20px]">
+          <span class="text-[32px] font-600 text-[#11254e]">多重安全保障</span>
+        </h3>
+        <h4>
+          <span class="text-[24px] text-[#7281a2] font-400"
+            >有效保障您的资金安全
+          </span>
+        </h4>
+      </ul>
+
+      <ul class="flex flex-col items-center justify-center">
+        <img
+          src="/public/assets/home/07.png"
+          alt="多重安全保障"
+          class="w-[290px] h-[290px]"
+        />
+        <div class="relative w-[150px] h-[40px]">
+          <div
+            class="w-full h-full bg-[#66b2f3] rounded-tl-[20px] rounded-br-[20px] -skew-x-8 absulute"
+          >
+          </div>
+          <p
+            class="w-full h-full flex items-center justify-center absolute left-0 top-0"
+          >
+            <img src="/public/assets/home/no2.svg" alt="多重安全保障 icon" />
+            <span class="text-[#fff] text-[24px] font-600 pl-3">NO.02</span>
+          </p>
+        </div>
+        <h3 class="py-[20px]">
+          <span class="text-[32px] font-600 text-[#11254e]">快捷支付</span>
+        </h3>
+        <h4>
+          <span class="text-[24px] text-[#7281a2] font-400"
+            >充值转账、换汇提现，快捷高效
+          </span>
+        </h4>
+      </ul>
+
+      <ul class="flex flex-col items-center justify-center">
+        <img
+          src="/public/assets/home/08.png"
+          alt="多重安全保障"
+          class="w-[290px] h-[290px]"
+        />
+        <div class="relative w-[150px] h-[40px]">
+          <div
+            class="w-full h-full bg-[#66b2f3] rounded-tl-[20px] rounded-br-[20px] -skew-x-8 absulute"
+          >
+          </div>
+          <p
+            class="w-full h-full flex items-center justify-center absolute left-0 top-0"
+          >
+            <img src="/public/assets/home/no3.svg" alt="多重安全保障 icon" />
+            <span class="text-[#fff] text-[24px] font-600 pl-3">NO.03</span>
+          </p>
+        </div>
+        <h3 class="py-[20px]">
+          <span class="text-[32px] font-600 text-[#11254e]">多币种支持</span>
+        </h3>
+        <h4>
+          <span class="text-[24px] text-[#7281a2] font-400">
+            跨地区优惠汇率
+          </span>
+        </h4>
+      </ul>
+    </div>
+  </section>
+
+  <section
+    class="container lg:max-w-[1280px] mx-auto pt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block gap-10 min-h-[620px]"
+  >
+    <h2 class="flex items-center justify-center py-[50px]">
+      <span class="text-[40px] text-[#11254e] font-600">为什么选择易换？</span>
+    </h2>
+
+    <div class="grid grid-cols-2 gap-10">
+      <ul
+        class="flex items-center shadow-[0_16px_24px_0_rgba(49,76,154,0.102)] p-[30px] rounded-[30px]"
+      >
+        <img
+          src="/assets/home/09.svg"
+          alt="全球化"
+          class="w-[60px] h-[60px] mr-5"
+        />
         <div>
-          <h3 class="text-[32px]">全球化</h3>
-          <p>
-            <strong class="text-[24px] text-[#7281a2] font-400"
+          <h3 class="text-[28px] text-[#11254e] py-[10px] font-bold">全球化</h3>
+          <h4 class="leading-6">
+            <span class="text-[16px] text-[#7281a2] font-400"
               >管理全球130个国家境内外资金，扩展您在全球的<br />业务范围
-            </strong>
-          </p>
+            </span>
+          </h4>
         </div>
       </ul>
-      <ul class="flex items-center">
-        <img src="" alt="" class="w-[60px] h-[60px] mr-5" />
+
+      <ul
+        class="flex items-center shadow-[0_16px_24px_0_rgba(49,76,154,0.102)] p-[30px] rounded-[30px]"
+      >
+        <img
+          src="/assets/home/10.svg"
+          alt="高速"
+          class="w-[60px] h-[60px] mr-5"
+        />
         <div>
-          <h3 class="text-[32px]">高速</h3>
-          <p>
-            <strong class="text-[24px] text-[#7281a2] font-400"
-              >凭借智能自动路由技术，为企业提供<br />最佳资金路径</strong
-            >
-          </p>
+          <h3 class="text-[28px] text-[#11254e] py-[10px] font-bold">高速</h3>
+          <h4 class="leading-6">
+            <span class="text-[16px] text-[#7281a2] font-400"
+              >凭借智能自动路由技术，为企业提供<br />最佳资金路径
+            </span>
+          </h4>
         </div>
       </ul>
-      <ul class="flex items-center">
-        <img src="" alt="" class="w-[60px] h-[60px] mr-5" />
+
+      <ul
+        class="flex items-center shadow-[0_16px_24px_0_rgba(49,76,154,0.102)] p-[30px] rounded-[30px]"
+      >
+        <img
+          src="/assets/home/11.svg"
+          alt="资金安全"
+          class="w-[60px] h-[60px] mr-5"
+        />
         <div>
-          <h3 class="text-[32px]">资金安全</h3>
-          <p>
-            <strong class="text-[24px] text-[#7281a2] font-400"
+          <h3 class="text-[28px] text-[#11254e] py-[10px] font-bold">
+            资金安全
+          </h3>
+          <h4 class="leading-6">
+            <span class="text-[16px] text-[#7281a2] font-400"
               >与各大银行、外贸公司战略合作，交易灵活、安全、稳<br
-              />定、快速，建立合作，实现共赢</strong
-            >
-          </p>
+              />定、快速，建立合作，实现共赢
+            </span>
+          </h4>
         </div>
       </ul>
-      <ul class="flex items-center">
-        <img src="" alt="" class="w-[60px] h-[60px] mr-5" />
+      <ul
+        class="flex items-center shadow-[0_16px_24px_0_rgba(49,76,154,0.102)] p-[30px] rounded-[30px]"
+      >
+        <img
+          src="/assets/home/12.svg"
+          alt='售后服务""'
+          class="w-[60px] h-[60px] mr-5"
+        />
         <div>
-          <h3 class="text-[32px]">售后服务</h3>
-          <p>
-            <strong class="text-[24px] text-[#7281a2] font-400"
-              >与各大银行、外贸公司战略合作，交易灵活、安全、稳<br
-              />定、快速，建立合作，实现共赢</strong
-            >
-          </p>
+          <h3 class="text-[28px] text-[#11254e] py-[10px] font-bold">
+            售后服务
+          </h3>
+          <h4 class="leading-6">
+            <span class="text-[16px] text-[#7281a2] font-400"
+              >专业的售后团队，具备售前、售中、售后一站式服<br
+              />务，专业答疑及快速提供解决方案
+            </span>
+          </h4>
         </div>
       </ul>
     </div>
   </section>
 
   <section
-    class="container lg:max-w-[1280px] mx-auto  pt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block gap-10 min-h-[852px] bg-[pink]"
+    class="container lg:max-w-[1280px] mx-auto pt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:block gap-10 min-h-[852px]"
   >
     <div class="grid grid-cols-2 gap-20">
       <ul class="flex items-center justify-center flex-col">
-        <img src="" alt="" class="w-[86px] h-[86px]" />
-        <h2>下载体验易换APP</h2>
-        <p>
-          <span>USDT、菲律宾PHP 、美国USD、香港HKD、迪拜AED、欧洲</span>
-        </p>
-        <p>
-          <span>EUR、台湾TWD、泰国THB、越南VND等多国币种互换</span>
+        <img
+          src="/public/assets/home/13.png"
+          alt=""
+          class="w-[86px] h-[86px]"
+        />
+        <h2 class="py-[16px]">
+          <span class="text-[#11254e] text-[40px] font-600"
+            >下载体验易换APP</span
+          >
+        </h2>
+        <p class="leading-8">
+          <span class="text-[20px] text-[#7281a2]"
+            >USDT、菲律宾PHP 、美国USD、香港HKD、迪拜AED、欧洲 <br />
+            EUR、台湾TWD、泰国THB、越南VND等多国币种互换
+          </span>
         </p>
 
-        <img src="" alt="" class="w-[144px] h-[144px]" />
+        <Qrcode
+          client:only
+          url="https://baidu.com"
+          size={200}
+          class="w-[160px] h-[160px] flex items-center justify-center bg-[#fff] mt-[20px]"
+        />
 
-        <div>
-          <span>扫码下载</span>
+        <div class="mt-[50px]">
+          <span class="bg-[#46b4f8] text-[24px] font-600 text-[#fff] py-2 px-8"
+            >扫码下载
+          </span>
         </div>
       </ul>
 
       <ul class="flex items-center">
-        <img src="" alt="" class="w-[450px] h-[750px]" />
+        <img src="/assets/home/15.png" alt="" class="w-[450px] h-[750px]" />
       </ul>
     </div>
   </section>
-
-
 
   <!-- h5 -->
   <div class="lg:grid xl:hidden">
@@ -413,16 +560,6 @@ try {
     shadow-[0_0_16px_rgba(51,157,255,0.2)] mt-4"
     >
       <!-- 内层：按钮主体 + 实线蓝色描边（inset 1px） -->
-      <RetryButton
-        title={t(locale, "尝试重新访问")}
-        class={`h-[44px] px-6 w-[100%]
-      rounded-[23.25px]
-      inline-flex items-center justify-center gap-[9.69px]
-      bg-white text-[#1649FF] text-[16px] font-600
-      shadow-[inset_0_0_0_1px_#1649FF]
-      transition-all-300 hover:bg-white/100 active:scale-98`}
-        client:only
-      />
     </div>
   </div>
 </BaseLayout>
