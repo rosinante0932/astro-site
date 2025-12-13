@@ -16,11 +16,11 @@ console.log(url, "==============url");
 <html lang={Astro.currentLocale} class="h-[100%] bg-[#f0f5f9]">
   <head>
     <BaseHead {title} {description} />
-    <!-- 先执行首帧主题脚本 -->
+
     <script is:inline>
       (() => {
         try {
-          const raw = localStorage.getItem("ui"); // ⬅️ 确保与 pinia 持久化的 key 一致
+          const raw = localStorage.getItem("ui");
           const sel = raw ? JSON.parse(raw).theme : "system";
           const prefersDark = window.matchMedia?.(
             "(prefers-color-scheme: dark)",
@@ -36,48 +36,40 @@ console.log(url, "==============url");
           if (actual === "dark") document.documentElement.classList.add("dark");
           document.documentElement.dataset.theme = actual;
         } catch {}
-
-        const last = location.pathname.lastIndexOf("/");
-        const first = location.pathname.indexOf("/");
-        const substring_tag = location.pathname.substring(first, last);
-
-        const pathname = location.pathname.replace(substring_tag, "");
-
-        // console.log(pathname, "pathname");
+        
+        const fullPath = location.pathname;
+        // 去掉语言前缀，例如 /en/download -> /download
+        const path =
+          fullPath.replace(/^\/(zh|en|th)(\/|$)/, "/").replace(/\/+$/, "") ||
+          "/";
 
         window.requestAnimationFrame(() => {
-          const names = document.getElementsByName("link");
-
-          names.forEach((ele) => {
-            const href = ele.getAttribute("href");
-            if (href === pathname) {
-              if (ele) {
-                ele.style.color = "#2996f5";
-                ele.style.fontWeight = 600;
-                if (ele.nextElementSibling) {
-                  ele.nextElementSibling.style.opacity = 1;
-                }
-              }
+          document.querySelectorAll("[data-nav]").forEach((el) => {
+            const nav =
+              (el.getAttribute("data-nav") || "").replace(/\/+$/, "") || "/";
+            const active =
+              nav === "/"
+                ? path === "/"
+                : path === nav || path.startsWith(nav + "/");
+            if (active) {
+              el.style.color = "#2996f5";
+              el.style.fontWeight = 600;
+              const arrow = el.nextElementSibling;
+              if (arrow && arrow.tagName === "IMG") arrow.style.opacity = 1;
             }
-
-            // pathname === "/teach-dx" || pathname === "/teach-yh" || pathname === "/teach-mk"
-            if (pathname.includes("/teach")) {
-              if (href === pathname) {
-                const node = names.item(5);
-                console.dir(node, "node");
-                if (node) {
-                  node.style.color = "#2996f5";
-                  node.style.fontWeight = 600;
-                  if (node.nextElementSibling) {
-                    node.nextElementSibling.style.opacity = 1;
-                  }
-                }
-              }
-            }
-
-            // console.log(pathname, "href1111");
-            // console.dir(ele.getAttribute("href"), "names");
           });
+
+          // teach 系列：高亮“新手教程”标题
+          if (path.startsWith("/teach")) {
+            const dropdown = document.getElementById("teach-dropdown");
+            const arrow = document.getElementById("teach-arrow");
+            if (dropdown) {
+              dropdown
+                .querySelector("span")
+                ?.setAttribute("style", "color:#2996f5;font-weight:600;");
+            }
+            if (arrow) arrow.style.opacity = 1;
+          }
         });
       })();
     </script>
@@ -105,7 +97,7 @@ console.log(url, "==============url");
         <div class="group flex flex-col items-center justify-center">
           <a
             href="/"
-            name="link"
+            data-nav="/"
             class="group-hover:text-[#2996f5] group-hover:font-600"
           >
             首页
@@ -120,7 +112,7 @@ console.log(url, "==============url");
         <div class="group flex flex-col items-center justify-center">
           <a
             href="/download"
-            name="link"
+            data-nav="/download"
             class="group-hover:text-[#2996f5] group-hover:font-600"
           >
             下载APP
@@ -135,7 +127,7 @@ console.log(url, "==============url");
         <div class="group flex flex-col items-center justify-center">
           <a
             href="/aboutus"
-            name="link"
+            data-nav="/aboutus"
             class="group-hover:text-[#2996f5] group-hover:font-600"
           >
             关于我们
@@ -150,7 +142,7 @@ console.log(url, "==============url");
         <div class="group flex flex-col items-center justify-center">
           <a
             href="/service"
-            name="link"
+            data-nav="/service"
             class="group-hover:text-[#2996f5] group-hover:font-600"
           >
             易换服务
@@ -165,7 +157,7 @@ console.log(url, "==============url");
         <div class="group flex flex-col items-center justify-center">
           <a
             href="/contactus"
-            name="link"
+            data-nav="/contactus"
             class="group-hover:text-[#2996f5] group-hover:font-600"
           >
             联系我们
@@ -178,10 +170,9 @@ console.log(url, "==============url");
         </div>
 
         <div class="flex items-center justify-center">
-          <div class="group relative inline-block">
+          <div class="relative inline-block" id="teach-dropdown">
             <span
-              name="link"
-              class="text-[#1f2937] cursor-pointer group-hover:text-[#2996f5] group-hover:font-600"
+              class="cursor-pointer text-[#1f2937] hover:text-[#2996f5] hover:font-600"
             >
               新手教程
             </span>
@@ -189,22 +180,24 @@ console.log(url, "==============url");
             <img
               src="/assets/header/hover.svg"
               alt=""
-              class="group-hover:opacity-100 opacity-0 mx-auto"
+              class="mx-auto opacity-0 transition-opacity"
+              id="teach-arrow"
             />
+
             <ul
-              class="absolute top-[70px] left-[-40px]
+              id="teach-menu"
+              class="absolute top-[50px] left-[-50px]
              w-[180px] bg-white py-[10px]
              shadow-[0_10px_30px_rgba(0,0,0,0.12)]
              opacity-0 translate-y-2 pointer-events-none
-             group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto
-             transition-all duration-400 ease-out"
+             transition-all duration-200 ease-out"
             >
               <li>
                 <a
                   href="/teach-yh"
-                  name="link"
+                  data-nav="/teach-yh"
                   class="block p-[10px] text-[#7281a2] text-[14px]
-                 hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+                 hover:bg-[#eef5fe] hover:text-[#2996f5]"
                 >
                   易换APP使用教程
                 </a>
@@ -213,9 +206,9 @@ console.log(url, "==============url");
               <li>
                 <a
                   href="/teach-dx"
-                  name="link"
+                  data-nav="/teach-dx"
                   class="block p-[10px] text-[#7281a2] text-[14px]
-                 hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+                 hover:bg-[#eef5fe] hover:text-[#2996f5]"
                 >
                   德信教程
                 </a>
@@ -224,9 +217,9 @@ console.log(url, "==============url");
               <li>
                 <a
                   href="/teach-mk"
-                  name="link"
+                  data-nav="/teach-mk"
                   class="block p-[10px] text-[#7281a2] text-[14px]
-                 hover:bg-[#eef5fe] hover:text-[#2996f5] cursor-pointer"
+                 hover:bg-[#eef5fe] hover:text-[#2996f5]"
                 >
                   MK教程
                 </a>
@@ -237,8 +230,8 @@ console.log(url, "==============url");
 
         <div class="group flex flex-col items-center justify-center">
           <a
-            name="link"
-            href="/question"
+            href="/qa"
+            data-nav="/qa"
             class="group-hover:text-[#2996f5] group-hover:font-600"
           >
             常见问题
@@ -259,14 +252,18 @@ console.log(url, "==============url");
       <slot />
 
       <ul class="fixed right-10 bottom-[100px]">
-        <li class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]">
+        <li
+          class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]"
+        >
           <img
             src="/assets/home/16.svg"
             alt="telegram"
             class="w-[70px] h-[70px]"
           />
         </li>
-        <li class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]">
+        <li
+          class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]"
+        >
           <img
             src="/assets/home/17.svg"
             alt="客服链接"
@@ -290,13 +287,13 @@ console.log(url, "==============url");
             <img src="/assets/yhicon.png" alt="" class="w-[80px] h-[80px]" />
           </dt>
           <dd class="grid gap-x-20 gap-y-5 grid-cols-4">
-            <a href="/" name="link">首页</a>
-            <a href="/aboutus" name="link">关于我们</a>
-            <a href="/contactus" name="link">联系我们</a>
-            <a href="/question" name="link">常见问题</a>
-            <a href="/download" name="link">下载APP</a>
-            <a href="/service" name="link">易换服务</a>
-            <a href="/teach" name="link">新手教程</a>
+            <a href="/" data-nav="/">首页</a>
+            <a href="/aboutus" data-nav="/aboutus">关于我们</a>
+            <a href="/contactus" data-nav="/contactus">联系我们</a>
+            <a href="/qa" data-nav="/qa">常见问题</a>
+            <a href="/download" data-nav="/download">下载APP</a>
+            <a href="/service" data-nav="/service">易换服务</a>
+            <a href="/teach/register" data-nav="/teach/register">新手教程</a>
           </dd>
         </dl>
         <ul
@@ -306,7 +303,7 @@ console.log(url, "==============url");
             client:only
             url="https://baidu.com"
             size="100"
-            class="w-[70px] h-[70px] flex items-center justify-center bg-[#fff] mt-[20px]"
+            className="w-[70px] h-[70px] flex items-center justify-center bg-[#fff] mt-[20px]"
           />
           <p class="py-[3px]">
             <span class="text-[14px] text-[#fff]">下载APP</span>
@@ -314,22 +311,73 @@ console.log(url, "==============url");
         </ul>
       </div>
     </footer>
-    <script>
-      import _ from "lodash-es";
-      const fn = _.throttle(() => {
-        console.log(window);
-        console.log(window.scrollY);
-        const oHeader = document.querySelector("header");
-        if (oHeader) {
-          if (window.scrollY >= 1) {
-            oHeader.style.backgroundColor = "#fff";
-          } else {
-            oHeader.style.backgroundColor = "transparent";
-          }
-        }
-      }, 100);
-      window.addEventListener("scroll", fn);
+
+    <!-- scroll  -->
+    <script is:inline>
+      (() => {
+        let ticking = false;
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            const oHeader = document.querySelector("header");
+            if (oHeader)
+              oHeader.style.backgroundColor =
+                window.scrollY >= 1 ? "#fff" : "transparent";
+            ticking = false;
+          });
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+      })();
     </script>
+
+    <!-- 新手教程下拉 -->
+    <script is:inline>
+      (() => {
+        const dropdown = document.getElementById("teach-dropdown");
+        const menu = document.getElementById("teach-menu");
+        const arrow = document.getElementById("teach-arrow");
+
+        if (dropdown && menu && arrow) {
+          let timer;
+
+          const open = () => {
+            clearTimeout(timer);
+            menu.classList.remove(
+              "opacity-0",
+              "translate-y-2",
+              "pointer-events-none",
+            );
+            menu.classList.add(
+              "opacity-100",
+              "translate-y-0",
+              "pointer-events-auto",
+            );
+            arrow.style.opacity = "1";
+          };
+
+          const close = () => {
+            timer = setTimeout(() => {
+              menu.classList.add(
+                "opacity-0",
+                "translate-y-2",
+                "pointer-events-none",
+              );
+              menu.classList.remove(
+                "opacity-100",
+                "translate-y-0",
+                "pointer-events-auto",
+              );
+              arrow.style.opacity = "0";
+            }, 120);
+          };
+
+          dropdown.addEventListener("mouseenter", open);
+          dropdown.addEventListener("mouseleave", close);
+        }
+      })();
+    </script>
+
     <VConsole enabled={true} />
     <!-- <footer class="container mx-auto p-4 text-center text-sm text-gray-500">
       © {new Date().getFullYear()} AstroVue. All rights reserved.
