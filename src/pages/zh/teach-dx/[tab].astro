@@ -1,0 +1,332 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const tabs = [
+    {
+        key: "download",
+        label: "下载信任教程",
+        title: "下载信任教程 - 德信使用教程",
+    },
+    {
+        key: "login",
+        label: "注册登录教程",
+        title: "注册登录教程 - 德信使用教程",
+    },
+    { key: "deposit", label: "存款教程", title: "存款教程 - 德信使用教程" },
+    { key: "withdraw", label: "取款教程", title: "取款教程 - 德信使用教程" },
+];
+
+export function getStaticPaths() {
+    return tabs.map((t) => ({
+        params: { tab: t.key },
+    }));
+}
+
+const { tab } = Astro.params;
+const current = tabs.find((t) => t.key === tab) ?? tabs[0];
+
+if (!tabs.some((t) => t.key === tab)) {
+    return Astro.redirect(`/zh/teach-dx/${tabs[0].key}`, 302);
+}
+
+const canonical = new URL(Astro.url);
+canonical.search = "";
+canonical.hash = "";
+---
+
+<BaseLayout
+    title={current.title}
+    description="德信使用教程，下载/登录/注册/存款/提现/步骤说明"
+>
+    <section class="container mx-auto py-10 mt-[70px]">
+        <h2 title="德信使用教程">
+            <img
+                src="/assets/teach-dx/01.svg"
+                alt="德信使用教程"
+                class="mx-auto"
+            />
+        </h2>
+
+        <link rel="canonical" href={canonical.toString()} />
+
+        <link rel="alternate" hreflang="zh" href={canonical.toString()} />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href={canonical.toString().replace("/zh/", "/en/")}
+        />
+        <link
+            rel="alternate"
+            hreflang="th"
+            href={canonical.toString().replace("/zh/", "/th/")}
+        />
+        <link
+            rel="alternate"
+            hreflang="vi"
+            href={canonical.toString().replace("/zh/", "/vi/")}
+        />
+        <link
+            rel="alternate"
+            hreflang="ko"
+            href={canonical.toString().replace("/zh/", "/ko/")}
+        />
+        <link
+            rel="alternate"
+            hreflang="km"
+            href={canonical.toString().replace("/zh/", "/km/")}
+        />
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href={canonical.toString().replace("/zh/", "/en/")}
+        />
+
+        <nav
+            class="mt-8 flex flex-wrap justify-center gap-4"
+            aria-label="教程导航"
+        >
+            {
+                tabs.map((t) => (
+                    <a
+                        title={t.label}
+                        href={`/zh/teach-dx/${t.key}`}
+                        class={`px-12 text-[18px] py-4 rounded-full shadow  font-bold
+            ${
+                t.key === current.key
+                    ? "bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] text-white"
+                    : "bg-white text-[#6b7280]"
+            }`}
+                        aria-current={
+                            t.key === current.key ? "page" : undefined
+                        }
+                    >
+                        {t.label}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <article
+            class="w-[900px] mx-auto
+             mt-10 bg-white/70 rounded-3xl p-8 rounded-[40px]
+             border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+        >
+            {
+                current.key === "download" && (
+                    <>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/1.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/2.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/3.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/4.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/5.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/6.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/7.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/1/8.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                    </>
+                )
+            }
+
+            {
+                current.key === "login" && (
+                    <>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/2/1.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/2/2.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/2/3.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/2/4.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/2/5.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                    </>
+                )
+            }
+
+            {
+                current.key === "deposit" && (
+                    <>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/3/1.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/3/2.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/3/3.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/3/4.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/3/5.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-dx/3/6.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                    </>
+                )
+            }
+
+            {
+                current.key === "withdraw" && (
+                    <>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/1.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/2.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/3.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/4.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/5.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/6.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/7.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                        <h3>
+                            <img
+                                src="/public/assets/teach-yh/4/8.png"
+                                alt=""
+                                class="m-auto w-[60%]"
+                            />
+                        </h3>
+                    </>
+                )
+            }
+        </article>
+    </section>
+</BaseLayout>
