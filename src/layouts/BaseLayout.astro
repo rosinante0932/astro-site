@@ -36,7 +36,7 @@ console.log(url, "==============url");
           if (actual === "dark") document.documentElement.classList.add("dark");
           document.documentElement.dataset.theme = actual;
         } catch {}
-        
+
         const fullPath = location.pathname;
         // 去掉语言前缀，例如 /en/download -> /download
         const path =
@@ -75,7 +75,9 @@ console.log(url, "==============url");
     </script>
   </head>
   <body class="h-[100%] font-sans antialiased text-gray-800 overflow-x-hidden">
-    <header class="xs:hidden sm:hidden md:hidden lg:hidden xl:block h-[70px] fixed left-0 right-0 z-100 bg-[transparent]">
+    <header
+      class="xs:hidden sm:hidden md:hidden lg:hidden xl:block h-[70px] fixed left-0 right-0 z-100 bg-[transparent]"
+    >
       <div
         class="container lg:max-w-[1280px] mx-auto py-4 flex items-center justify-between mx-auto"
       >
@@ -248,33 +250,44 @@ console.log(url, "==============url");
         </nav>
       </div>
     </header>
+    <header
+      class="xl:hidden block fixed left-0 right-0 z-100 py-2 px-4
+      flex items-center justify-between
+      bg-[linear-gradient(0deg,#edf2ff,#edf2ff),linear-gradient(0deg,#fff,#fff)]"
+    >
+      <img src="/assets/header/logo.svg"  class="h-7" alt="" />
+      <div>
+        <img src="/assets/header/menu.svg" alt="" class="h-5" />
+      </div>
+    </header>
+
     <main class="container mx-auto py-4">
       <slot />
 
-      <ul class="fixed right-10 bottom-[100px]">
+      <ul class="fixed xl:right-10 right-2 xl:bottom-10 bottom-15">
         <li
-          class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]"
+          class="mb-[20px] xl:w-[70px] xl:h-[70px] w-10 h-10 rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]"
         >
           <img
             src="/assets/home/16.svg"
             alt="telegram"
-            class="w-[70px] h-[70px]"
+            class="xl:w-[70px] xl:h-[70px] w-10 h-10"
           />
         </li>
         <li
-          class="mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]"
+          class="mb-[20px] xl:w-[70px] xl:h-[70px] w-10 h-10 mb-[20px] rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]"
         >
           <img
             src="/assets/home/17.svg"
             alt="客服链接"
-            class="w-[70px] h-[70px]"
+            class="xl:w-[70px] xl:h-[70px] w-10 h-10"
           />
         </li>
         <li
           class="shadow-[0_16px_24px_0_rgba(19,78,238,0.2)] mb-[20px] rounded-[50%] shadow-[0_16px_24px_rgba(49,76,154,0.12)]
-         bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] w-[70px] h-[70px] flex items-center justify-center"
+         bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] xl:w-[70px] xl:h-[70px] w-10 h-10 flex items-center justify-center"
         >
-          <img src="/assets/home/18.svg" alt="" class="w-[40px] h-[40px]" />
+          <img src="/assets/home/18.svg" alt="" class="xl:w-[40px] xl:h-[40px] w-6 h-6" />
         </li>
       </ul>
     </main>
@@ -293,7 +306,9 @@ console.log(url, "==============url");
             <a href="/qa" data-nav="/qa">常见问题</a>
             <a href="/download" data-nav="/download">下载APP</a>
             <a href="/service" data-nav="/service">易换服务</a>
-            <a href="/teach-yh/register" data-nav="/teach-yh/register">新手教程</a>
+            <a href="/teach-yh/register" data-nav="/teach-yh/register"
+              >新手教程</a
+            >
           </dd>
         </dl>
         <ul
