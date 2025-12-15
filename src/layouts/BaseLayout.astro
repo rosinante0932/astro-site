@@ -255,7 +255,7 @@ console.log(url, "==============url");
       flex items-center justify-between
       bg-[linear-gradient(0deg,#edf2ff,#edf2ff),linear-gradient(0deg,#fff,#fff)]"
     >
-      <img src="/assets/header/logo.svg"  class="h-7" alt="" />
+      <img src="/assets/header/logo.svg" class="h-7" alt="" />
       <div>
         <img src="/assets/header/menu.svg" alt="" class="h-5" />
       </div>
@@ -287,7 +287,11 @@ console.log(url, "==============url");
           class="shadow-[0_16px_24px_0_rgba(19,78,238,0.2)] mb-[20px] rounded-[50%] shadow-[0_16px_24px_rgba(49,76,154,0.12)]
          bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] xl:w-[70px] xl:h-[70px] w-10 h-10 flex items-center justify-center"
         >
-          <img src="/assets/home/18.svg" alt="" class="xl:w-[40px] xl:h-[40px] w-6 h-6" />
+          <img
+            src="/assets/home/18.svg"
+            alt=""
+            class="xl:w-[40px] xl:h-[40px] w-6 h-6"
+          />
         </li>
       </ul>
     </main>
@@ -312,7 +316,8 @@ console.log(url, "==============url");
           </dd>
         </dl>
         <ul
-          class="bg-[linear-gradient(rgba(70,204,237,0.21),_rgb(77,165,247))] w-[120px] rounded-lg h-[130px] flex items-center justify-center flex-col"
+          class="bg-[linear-gradient(rgba(70,204,237,0.21),_rgb(77,165,247))] w-[120px]
+          rounded-lg h-[130px] flex items-center justify-center flex-col"
         >
           <Qrcode
             client:only
@@ -325,6 +330,34 @@ console.log(url, "==============url");
           </p>
         </ul>
       </div>
+    </footer>
+
+    <footer class="flex xl:hidden bg-[#fff] p-4 pb-20 justify-between">
+      <ul
+        class="bg-[linear-gradient(rgba(70,204,237,0.21),_rgb(77,165,247))]
+        w-20 rounded-lg h-25 flex items-center justify-center flex-col"
+      >
+        <Qrcode
+          iconSize="20"
+          client:only
+          url="https://baidu.com"
+          size="60"
+          className="w-20 h-20 flex items-center justify-center mt-[20px]"
+        />
+        <p class="py-[3px]">
+          <span class="text-xs text-[#fff]">下载APP</span>
+        </p>
+      </ul>
+
+      <nav class="grid gap-x-8 gap-y-6 grid-cols-3 text-sm">
+        <a href="/" data-nav="/">首页</a>
+        <a href="/aboutus" data-nav="/aboutus">关于我们</a>
+        <a href="/contactus" data-nav="/contactus">联系我们</a>
+        <a href="/qa" data-nav="/qa">常见问题</a>
+        <a href="/download" data-nav="/download">下载APP</a>
+        <a href="/service" data-nav="/service">易换服务</a>
+        <a href="/teach-yh/register" data-nav="/teach-yh/register">新手教程</a>
+      </nav>
     </footer>
 
     <!-- scroll  -->
