@@ -193,7 +193,11 @@ try {
     class="container relative lg:max-w-[1280px] mx-auto mt-[70px] xs:hidden sm:hidden md:hidden lg:hidden xl:flex flex items-center justify-between gap-10 min-h-[400px]"
   >
     <h2>
-      <img src="/assets/aboutus/01.svg" alt="" class="w-[570px] h-[160px] ml-[-25px]" />
+      <img
+        src="/assets/aboutus/01.svg"
+        alt=""
+        class="w-[570px] h-[160px] ml-[-25px]"
+      />
     </h2>
     <img
       src="/assets/aboutus/02.png"
@@ -403,54 +407,178 @@ try {
   </section>
 
   <!-- h5 -->
-  <div class="lg:grid xl:hidden">
-    <h2 class="text-center text-2xl text-[#011E42] font-semibold">
-      {t(locale, "访问受限制")}
-    </h2>
-    <h3 class="text-center text-[#969696] mt-2">
-      {t(locale, "您的IP所在地")}：<span class="text-[#2996F5]"
-        >{String(posts.country)} {String(posts.city)}
-      </span>
-    </h3>
+  <div class="lg:grid xl:hidden bg-[#eef2fe]">
+    <section class="mt-10 relative z-1">
+      <h2>
+        <img
+          class="mx-auto h-20"
+          src="/assets/aboutus/m/01.svg"
+          alt="易换APP使用教程"
+        />
+      </h2>
+    </section>
 
-    <!-- <Image
-      src={import("~/assets/svg/403.svg")}
-      alt="403 logo"
-    /> -->
-    <p
-      class="text-xs/5 text-[#011E42] text-center"
-      set:html={restrictionHtml}
-    />
-    <a href={posts.value}>
-      <button
-        class="test inline-flex items-center justify-center mt-7.5
-      h-[44px] w-[100%] gap-[9.69px]
-      rounded-[23.25px]
-      text-white text-[16px] font-600
-      bg-gradient-to-r from-[#339DFF] to-[#1649FF]
-      shadow-[0_0_16px_rgba(51,157,255,0.2)]
-      transition-all-300 hover:opacity-90 active:scale-98"
-        >{t(locale, "联系客服")}
-      </button>
-    </a>
+    <section class="-translate-y-25 relative z-0 h-55">
+      <img src="/assets/aboutus/m/02.svg" alt="" />
+    </section>
 
-    <div
-      class="inline-block w-[100%]
-    p-[.1px] rounded-[23.25px]
-    bg-[linear-gradient(90deg,#339DFF_0%,#1649FF_100%)]
-    shadow-[0_0_16px_rgba(51,157,255,0.2)] mt-4"
-    >
-      <!-- 内层：按钮主体 + 实线蓝色描边（inset 1px） -->
-      <RetryButton
-        title={t(locale, "尝试重新访问")}
-        class={`h-[44px] px-6 w-[100%]
-      rounded-[23.25px]
-      inline-flex items-center justify-center gap-[9.69px]
-      bg-white text-[#1649FF] text-[16px] font-600
-      shadow-[inset_0_0_0_1px_#1649FF]
-      transition-all-300 hover:bg-white/100 active:scale-98`}
-        client:only
-      />
-    </div>
+    <section class="pt-10 relative z-1">
+      <h2 class="text-center pb-8">
+        <span class="text-5 text-[#11254e]">新一代互联网银行</span>
+      </h2>
+
+      <h3 class="px-10">
+        <span class="text-[#7281a2] text-xs leading-8"
+          >易换立足亚洲，享誉全球，从2018年成立起，秉承诚信经营为宗旨，以安全公正的服务为核心，
+          持续扩展国际化路线，提供覆盖全球币种兑换服务，丰富多样的交易形式，持有最强竞争力的汇率，
+          超低的手续费回馈给我们广大客户，我们以诚信、专业、高效、稳定的服务经营理念，致力于给全球客户最优质的换汇体验。
+        </span>
+      </h3>
+
+      <img src="/assets/aboutus/m/03.svg" alt="" class="mx-auto" />
+    </section>
+
+    <section class="px-6">
+      <ul
+        class="h-68 relative
+        after:content-['']
+        after:block
+        after:w-[100%]
+        after:h-1
+        after:rounded-20
+        after:absolute
+        after:bottom-0
+        after:bg-[linear-gradient(90deg,_#3feae4_-13.67%,_#5383ff)]"
+      >
+        <h2
+          class="flex items-center py-[20px] mb-[20px] justify-center relative"
+        >
+          <img
+            src="/assets/aboutus/04.svg"
+            alt="覆盖全球多个国家"
+            class="w-12 h-12 absolute left-0"
+          />
+          <span class="text-5 text-[#11254e]">覆盖全球多个国家</span>
+        </h2>
+
+        <h3>
+          <span class="text-xs leading-8 text-[#7281a2] font-400"
+            >支持USDT、菲律宾PHP 、美国USD、香港
+            HKD、迪拜AED、欧洲EUR、台湾TWD、泰国
+            THB、越南VND等等，只要客户有换汇需求，易
+            换都能给您服务到位，并不设最高和最低限额。
+            所有客户的交易都可以享受我们最优质的服务。
+          </span>
+        </h3>
+      </ul>
+
+      <ul
+        class="h-68 relative
+         mt-4
+        after:content-['']
+        after:block
+        after:w-[100%]
+        after:h-1
+        after:rounded-20
+        after:absolute
+        after:bottom-0
+        after:bg-[linear-gradient(90deg,_#3feae4_-13.67%,_#5383ff)]"
+      >
+        <h2
+          class="flex items-center py-[20px] mb-[20px] justify-center relative"
+        >
+          <img
+            src="/assets/aboutus/05.svg"
+            alt="支持定制需求服务"
+            class="w-12 h-12 absolute left-0"
+          />
+          <span class="text-5 text-[#11254e]">支持定制需求服务</span>
+        </h2>
+        <h3>
+          <span class="text-xs leading-8 text-[#7281a2] font-400">
+            支持上门收款服务（线上贵宾厅白马会 / 玖鼎 / USDT 收款）；全球送现金
+            /送黄金，泰国， 迪拜，菲律宾，柬埔寨等国际化区域送现服务
+            ；客户足不出户，就可以安全完成交易，安全<br />
+            高效省心。
+          </span>
+        </h3>
+      </ul>
+
+      <ul
+        class="pb-8 relative
+        mt-4
+        after:content-['']
+        after:block
+        after:w-[100%]
+        after:h-1
+        after:rounded-20
+        after:absolute
+        after:bottom-0
+        after:bg-[linear-gradient(90deg,_#3feae4_-13.67%,_#5383ff)]"
+      >
+        <h2
+          class="flex items-center py-[20px] mb-[20px] justify-center relative"
+        >
+          <img
+            src="/assets/aboutus/06.png"
+            alt="每日更新最优惠汇率"
+            class="w-10 h-10 absolute left-0"
+          />
+          <span class="text-5 text-[#11254e]">每日更新最优惠汇率</span>
+        </h2>
+        <h3>
+          <span class="text-xs leading-8 text-[#7281a2] font-400"
+            >每日更新最优惠汇率至易换频道，客户可参考
+            实时详细各类币种兑换汇率，易换客服7*24
+            全天在线等您，随时为您提供贴心服务，感恩 每一位客户的信任与支持!
+          </span>
+        </h3>
+      </ul>
+    </section>
+
+    <section class="pt-10 mx-6">
+      <h2 class="text-center pb-8">
+        <span class="text-5 text-[#11254e]">我们的优势</span>
+      </h2>
+
+      <ul
+        class="p-8 flex items-center rounded-[20px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/09.svg" alt="" class="w-16 h-16 mx-auto" />
+        <div class="flex-1 pl-6">
+          <h3>
+            <span class="text-4 font-600 text-[#11254e]">安全保证</span>
+          </h3>
+          <h4 class="text-xs text-[#7281a2] py-4">易换对于客户的所有</h4>
+          <h4 class="text-xs text-[#7281a2]">资料一律严格保密</h4>
+        </div>
+      </ul>
+
+      <ul
+        class="p-8 mt-4 p-[10px] flex items-center rounded-[20px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/10.svg" alt="" class="w-16 h-16 mx-auto" />
+        <div class="flex-1 pl-6">
+          <h3>
+            <span class="text-4 font-600 text-[#11254e]">快速转账</span>
+          </h3>
+          <h4 class="text-xs text-[#7281a2] py-4">易换对于客户的所有</h4>
+          <h4 class="text-xs text-[#7281a2]">的前提下快速到达</h4>
+        </div>
+      </ul>
+
+      <ul
+        class="p-8 mt-4 p-[10px] flex items-center rounded-[20px] border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
+      >
+        <img src="/assets/home/11.svg" alt="" class="w-16 h-16 mx-auto" />
+        <div class="flex-1 pl-6">
+          <h3>
+            <span class="text-4 font-600 text-[#11254e]">优惠汇率</span>
+          </h3>
+          <h4 class="text-xs text-[#7281a2] py-4">易换提供最优惠的</h4>
+          <h4 class="text-xs text-[#7281a2]">最合适的私人定制换汇服务</h4>
+        </div>
+      </ul>
+    </section>
   </div>
 </BaseLayout>
