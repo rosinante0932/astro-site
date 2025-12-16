@@ -77,6 +77,9 @@ importers:
       superagent:
         specifier: ^10.2.3
         version: 10.2.3
+      ua-parser-js:
+        specifier: ^2.0.7
+        version: 2.0.7
       undici:
         specifier: ^7.15.0
         version: 7.16.0
@@ -1882,6 +1885,9 @@ packages:
   destr@2.0.5:
     resolution: {integrity: sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA==}
 
+  detect-europe-js@0.1.2:
+    resolution: {integrity: sha512-lgdERlL3u0aUdHocoouzT10d9I89VVhk0qNRmll7mXdGfJT1/wqZ2ZLA4oJAjeACPY5fT1wsbq2AT+GkuInsow==}
+
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
@@ -2318,6 +2324,9 @@ packages:
 
   is-potential-custom-element-name@1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
+
+  is-standalone-pwa@0.1.1:
+    resolution: {integrity: sha512-9Cbovsa52vNQCjdXOzeQq5CnCbAcRk05aU62K20WO372NrTv0NxibLFCK6lQ4/iZEFdEA3p3t2VNOn8AJ53F5g==}
 
   is-stream@4.0.1:
     resolution: {integrity: sha512-Dnz92NInDqYckGEUJv689RbRiTSEHCQ7wOVeALbkOz999YpqT46yMRIGtSNl2iCL1waAZSx40+h59NV/EwzV/A==}
@@ -3231,6 +3240,13 @@ packages:
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
+    hasBin: true
+
+  ua-is-frozen@0.1.2:
+    resolution: {integrity: sha512-RwKDW2p3iyWn4UbaxpP2+VxwqXh0jpvdxsYpZ5j/MLLiQOfbsV5shpgQiw93+KMYQPcteeMQ289MaAFzs3G9pw==}
+
+  ua-parser-js@2.0.7:
+    resolution: {integrity: sha512-CFdHVHr+6YfbktNZegH3qbYvYgC7nRNEUm2tk7nSFXSODUu4tDBpaFpP1jdXBUOKKwapVlWRfTtS8bCPzsQ47w==}
     hasBin: true
 
   ufo@1.6.1:
@@ -5935,6 +5951,8 @@ snapshots:
 
   destr@2.0.5: {}
 
+  detect-europe-js@0.1.2: {}
+
   detect-libc@2.1.2: {}
 
   deterministic-object-hash@2.0.2:
@@ -6455,6 +6473,8 @@ snapshots:
   is-plain-obj@4.1.0: {}
 
   is-potential-custom-element-name@1.0.1: {}
+
+  is-standalone-pwa@0.1.1: {}
 
   is-stream@4.0.1: {}
 
@@ -7595,6 +7615,14 @@ snapshots:
   type-fest@4.41.0: {}
 
   typescript@5.9.3: {}
+
+  ua-is-frozen@0.1.2: {}
+
+  ua-parser-js@2.0.7:
+    dependencies:
+      detect-europe-js: 0.1.2
+      is-standalone-pwa: 0.1.1
+      ua-is-frozen: 0.1.2
 
   ufo@1.6.1: {}
 
