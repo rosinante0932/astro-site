@@ -257,9 +257,87 @@ console.log(url, "==============url");
     >
       <img src="/assets/header/logo.svg" class="h-7" alt="" />
       <div>
-        <img src="/assets/header/menu.svg" alt="" class="h-5" />
+        <img
+          id="menuBtn"
+          src="/assets/header/menu.svg"
+          alt=""
+          class="h-5"
+          aria-label="打开菜单"
+          aria-haspopup="dialog"
+          aria-controls="mobileDrawer"
+        />
       </div>
     </header>
+
+    <dialog
+      id="mobileDrawer"
+      class="m-0 p-0 w-full max-w-none h-[100dvh] bg-transparent"
+    >
+    
+      <div data-close class="fixed inset-0 bg-black/45"></div>
+
+      <aside
+        class="fixed right-0 top-0 h-[100dvh] w-[78vw] max-w-[360px] bg-[#f3f5fe] rounded-l-2xl shadow-xl
+           translate-x-0"
+      >
+        <div class="flex items-center justify-end p-4">
+          <img
+            data-close
+            src="/assets/header/close.svg"
+            alt=""
+            class="h-5"
+            aria-label="关闭菜单"
+            aria-haspopup="dialog"
+            aria-controls="mobileDrawer"
+          />
+        </div>
+
+        <nav class="px-5 pb-8">
+          <a
+            data-nav="/"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/"
+            >首页
+          </a>
+          <a
+            data-nav="/download"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/download"
+            >下载APP
+          </a>
+          <a
+            data-nav="/aboutus"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/aboutus"
+            >关于我们
+          </a>
+          <a
+            data-nav="/service"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/service"
+            >易换服务
+          </a>
+          <a
+            data-nav="/contactus"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/contactus"
+            >联系我们
+          </a>
+          <a
+            data-nav="/teach-yh/register"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/teach-yh/register"
+            >新手教程
+          </a>
+          <a
+            data-nav="/qa"
+            class="block py-4 text-[20px] text-[#0f172a] font-600"
+            href="/qa"
+            >常见问题
+          </a>
+        </nav>
+      </aside>
+    </dialog>
 
     <main class="container mx-auto py-4">
       <slot />
@@ -423,6 +501,78 @@ console.log(url, "==============url");
           dropdown.addEventListener("mouseenter", open);
           dropdown.addEventListener("mouseleave", close);
         }
+      })();
+    </script>
+
+    <script is:inline>
+      (function () {
+        const btn = document.getElementById("menuBtn");
+        const dlg = document.getElementById("mobileDrawer");
+
+        if (!btn || !dlg) return;
+
+        // 滚动锁：iOS
+        let scrollY = 0;
+        function lockScroll() {
+          scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+          document.body.style.position = "fixed";
+          document.body.style.top = `-${scrollY}px`;
+          document.body.style.left = "0";
+          document.body.style.right = "0";
+          document.body.style.width = "100%";
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        }
+        function unlockScroll() {
+          const top = document.body.style.top;
+          document.body.style.position = "";
+          document.body.style.top = "";
+          document.body.style.left = "";
+          document.body.style.right = "";
+          document.body.style.width = "";
+          document.body.style.overflow = "";
+          document.body.style.touchAction = "";
+          const y = top ? Math.abs(parseInt(top, 10)) : scrollY;
+          window.scrollTo(0, y);
+        }
+
+        function openDrawer() {
+          if (typeof dlg.showModal === "function") dlg.showModal();
+          else dlg.setAttribute("open", ""); // 兜底
+          lockScroll();
+          btn.setAttribute("aria-expanded", "true");
+        }
+
+        function closeDrawer() {
+          if (dlg.open) dlg.close();
+          unlockScroll();
+          btn.setAttribute("aria-expanded", "false");
+          btn.focus();
+        }
+
+        btn.addEventListener("click", openDrawer);
+
+        // 点击遮罩/关闭按钮
+        dlg.addEventListener("click", (e) => {
+          const target = e.target;
+          if (target && target.closest && target.closest("[data-close]")) {
+            closeDrawer();
+          }
+        });
+
+        dlg.addEventListener("close", () => {
+          unlockScroll();
+          btn.setAttribute("aria-expanded", "false");
+        });
+
+        dlg.addEventListener("cancel", (e) => {
+          // 按 Esc 允许关；如果我们不想 Esc 关，就 e.preventDefault()
+          // e.preventDefault()
+        });
+
+        // 暴露调试用
+        window.__openDrawer = openDrawer;
+        window.__closeDrawer = closeDrawer;
       })();
     </script>
 
