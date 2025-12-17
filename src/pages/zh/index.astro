@@ -3,7 +3,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { DOCKER_PROXY_IP } from "astro:env/server";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import axios from "axios";
-import { highlightPlaceholders } from "@/utils/common";
 import API from "@/api/index.js";
 import { t, resolveLocale, type Locale } from "@/lib/i18n";
 import ForbiddenImage from "@/components/Forbidden.vue";
@@ -14,7 +13,6 @@ import superagentService from "@/services/service.superagent";
 import service from "@/services/service.astro-fetch";
 import Httpservice from "@/services/service.http";
 import "@/assets/css/initial.css";
-import RetryButton from "@/components/RetryButton.vue";
 import Qrcode from "@/components/Qrcode.vue";
 
 const proxy = DOCKER_PROXY_IP; // 你的代理地址
@@ -43,6 +41,7 @@ let posts = {
   value: "",
   clientIp: Astro.locals.clientIP,
   custom_ip: Astro.locals.clientIP,
+  tg: ''
 };
 
 console.log(Astro.locals.clientIP, "客户端ip");
@@ -66,7 +65,7 @@ console.log(process.env.DOCKER_PROXY_NET, "==================DOCKER_PROXY_NET");
 try {
   const res = await API.getKvConfig(
     {
-      k: "official.chat.web.url.text",
+      k: "official.contact.us.telegram.text"
     },
     {
       headers: {
@@ -81,6 +80,7 @@ try {
   posts = {
     ...posts,
     ...res.data,
+    tg: res.data.value
   };
 
   console.log(res.data, "正确获取归属地的 ---1");
@@ -194,7 +194,7 @@ try {
           class="w-[433px] h-[78px]"
         />
       </h2>
-      <h3 class="mt-[35px] text-[#7281a2] text-[20px]">
+      <h3 class="mt-[35px] text-[#7281a2] leading-8 text-[20px]">
         便捷快速，安全可靠，全球多国币种，一站式解决！<br />
         轻松畅享全球支付与兑换服务~
       </h3>
@@ -493,7 +493,7 @@ try {
         <Qrcode
           client:only
           url="https://baidu.com"
-          size={200}
+          size={120}
           className="w-[160px] h-[160px] flex items-center justify-center bg-[#fff] mt-[20px]"
         />
 
@@ -532,7 +532,7 @@ try {
     </section>
 
     <section>
-      <img src="/public/assets/home/m/01.png" alt="" />
+      <img src="/assets/home/m/01.png" alt="" />
     </section>
 
     <section class="grid grid-cols-2 gap-3 -translate-y-70 h-0">
@@ -703,28 +703,32 @@ try {
     </section>
 
     <nav class="fixed bottom-4 left-0 right-0 flex items-center justify-evenly">
-      <button
-        class="cursor-pointer flex text-[#fff] font-600 rounded-[40px] items-center justify-center py-3 px-8 bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]"
-      >
-        <img
-          src="/assets/home/iOS.svg"
-          alt="iOS下载"
-          class="w-[24px] h-[24px]"
-          alt="iOS下载"
-        />
-        <span class="pl-1 text-[#fff]">iOS下载</span>
-      </button>
-      <button
-        class="cursor-pointer flex text-[#fff] font-600 rounded-[40px] items-center justify-center py-3 px-8 ml-4 bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]"
-      >
-        <img
-          src="/assets/home/android.svg"
-          alt="安卓下载"
-          class="w-[24px] h-[24px]"
-          alt="安卓下载"
-        />
-        <span class="pl-1 text-[#fff]">安卓下载</span>
-      </button>
+      <a href="/download">
+        <button
+          class="cursor-pointer flex text-[#fff] font-600 rounded-[40px] items-center justify-center py-3 px-8 bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]"
+        >
+          <img
+            src="/assets/home/iOS.svg"
+            alt="iOS下载"
+            class="w-[24px] h-[24px]"
+            alt="iOS下载"
+          />
+          <span class="pl-1 text-[#fff]">iOS下载</span>
+        </button>
+      </a>
+      <a href="/download">
+        <button
+          class="cursor-pointer flex text-[#fff] font-600 rounded-[40px] items-center justify-center py-3 px-8 ml-4 bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]"
+        >
+          <img
+            src="/assets/home/android.svg"
+            alt="安卓下载"
+            class="w-[24px] h-[24px]"
+            alt="安卓下载"
+          />
+          <span class="pl-1 text-[#fff]">安卓下载</span>
+        </button>
+      </a>
     </nav>
   </div>
 </BaseLayout>

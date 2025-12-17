@@ -9,8 +9,7 @@
 <script setup lang="ts">
 import QrcodeVue from 'qrcode.vue'
 import { ref } from 'vue'
-defineProps(['size', 'url', 'className', 'iconSize'])
-const text = ref(`https://example.com?rd=${Math.random()}`) // 扫码内容
+const props = defineProps(['size', 'url', 'className', 'iconSize'])
 
-
+const text = ref(`${location.origin}${props.url}?rd=${Math.random()}`) // 扫码内容
 </script>
