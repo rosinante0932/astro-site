@@ -1,96 +1,163 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const tabs = [
+type Tab = {
+    key: string;
+    label: string;
+    title: string;
+    dir: string;
+    count: number;
+};
+
+const BASE_ROUTE = "/zh/teach-dx";
+const ASSET_BASE = "/assets/teach-dx";
+
+const tabs: Tab[] = [
     {
         key: "download",
         label: "下载信任教程",
         title: "下载信任教程 - 德信使用教程",
+        dir: "1",
+        count: 8,
     },
     {
         key: "login",
         label: "注册登录教程",
         title: "注册登录教程 - 德信使用教程",
+        dir: "2",
+        count: 5,
     },
-    { key: "deposit", label: "存款教程", title: "存款教程 - 德信使用教程" },
-    { key: "withdraw", label: "取款教程", title: "取款教程 - 德信使用教程" },
+    {
+        key: "deposit",
+        label: "存款教程",
+        title: "存款教程 - 德信使用教程",
+        dir: "3",
+        count: 6,
+    },
+    {
+        key: "withdraw",
+        label: "取款教程",
+        title: "取款教程 - 德信使用教程",
+        dir: "4",
+        count: 8,
+    },
 ];
 
 export function getStaticPaths() {
-    return tabs.map((t) => ({
-        params: { tab: t.key },
-    }));
+    return tabs.map((t) => ({ params: { tab: t.key } }));
 }
 
 const { tab } = Astro.params;
 const current = tabs.find((t) => t.key === tab) ?? tabs[0];
 
 if (!tabs.some((t) => t.key === tab)) {
-    return Astro.redirect(`/zh/teach-dx/${tabs[0].key}`, 302);
+    return Astro.redirect(`${BASE_ROUTE}/${tabs[0].key}`, 302);
 }
 
 const canonical = new URL(Astro.url);
 canonical.search = "";
 canonical.hash = "";
+
+// 图片列表（一定是绝对路径，避免变成 /zh/assets/...）
+const images = Array.from({ length: current.count }, (_, i) => {
+    return `${ASSET_BASE}/${current.dir}/${i + 1}.png`;
+});
+
+const hrefOf = (key: string) => `${BASE_ROUTE}/${key}`;
 ---
 
 <BaseLayout
     title={current.title}
     description="德信使用教程，下载/登录/注册/存款/提现/步骤说明"
 >
-    <section class="container mx-auto py-10 mt-[70px]">
-        <h2 title="德信使用教程">
-            <img
-                src="/assets/teach-dx/01.svg"
-                alt="德信使用教程"
-                class="mx-auto"
-            />
-        </h2>
+    <link rel="canonical" href={canonical.toString()} />
 
-        <link rel="canonical" href={canonical.toString()} />
+    {/* ===== PC / 大屏 ===== */}
+    <section class="hidden xl:block">
+        <div class="container mx-auto py-10 mt-[70px]">
+            <h2 title="德信使用教程">
+                <img
+                    src="/assets/teach-dx/01.svg"
+                    alt="德信使用教程"
+                    class="mx-auto h-[120px]"
+                />
+            </h2>
 
-        <link rel="alternate" hreflang="zh" href={canonical.toString()} />
-        <link
-            rel="alternate"
-            hreflang="en"
-            href={canonical.toString().replace("/zh/", "/en/")}
-        />
-        <link
-            rel="alternate"
-            hreflang="th"
-            href={canonical.toString().replace("/zh/", "/th/")}
-        />
-        <link
-            rel="alternate"
-            hreflang="vi"
-            href={canonical.toString().replace("/zh/", "/vi/")}
-        />
-        <link
-            rel="alternate"
-            hreflang="ko"
-            href={canonical.toString().replace("/zh/", "/ko/")}
-        />
-        <link
-            rel="alternate"
-            hreflang="km"
-            href={canonical.toString().replace("/zh/", "/km/")}
-        />
-        <link
-            rel="alternate"
-            hreflang="x-default"
-            href={canonical.toString().replace("/zh/", "/en/")}
-        />
+            <nav
+                class="mt-8 flex flex-wrap justify-center gap-4"
+                aria-label="教程导航"
+            >
+                {
+                    tabs.map((t) => (
+                        <a
+                            href={hrefOf(t.key)}
+                            class={`px-12 text-[18px] py-4 rounded-full shadow font-bold
+              ${
+                  t.key === current.key
+                      ? "bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] text-white"
+                      : "bg-white text-[#6b7280]"
+              }`}
+                            aria-current={
+                                t.key === current.key ? "page" : undefined
+                            }
+                        >
+                            {t.label}
+                        </a>
+                    ))
+                }
+            </nav>
+
+            <article
+                class="w-[900px] mx-auto mt-10 bg-white/70 p-8 rounded-[40px] border border-3 border-solid border-[#fff]"
+            >
+                {
+                    images.map((src, idx) => (
+                        <figure class="my-6">
+                            <img
+                                src={src}
+                                alt={`${current.label} - 第 ${idx + 1} 步`}
+                                class="m-auto w-[60%]"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </figure>
+                    ))
+                }
+            </article>
+        </div>
+    </section>
+
+    {/* ===== H5 / 小屏 ===== */}
+    <section class="xl:hidden bg-[#eef2fe] pb-20 mt-8 overflow-hidden">
+        <nav class="flex bg-[#fff] py-3 items-center justify-center gap-4">
+            <a href="/zh/teach-yh/register" class="text-[#969696]"
+                >易换APP使用教程</a
+            >
+
+            <a
+                href={hrefOf(tabs[0].key)}
+                class="text-[#141414] relative after:content-['']
+          after:h-1 after:w-18 after:block
+          after:absolute after:-bottom-3 after:bg-[#4385ed]
+          after:left-1/2 after:-translate-x-1/2 after:rounded-t-20"
+            >
+                德信教程
+            </a>
+
+            <a href="/zh/teach-mk/deposit" class="text-[#969696]">MK教程</a>
+        </nav>
 
         <nav
-            class="mt-8 flex flex-wrap justify-center gap-4"
+            data-tabs-nav
+            class="py-6 px-4 whitespace-nowrap overflow-x-auto scroll-smooth"
             aria-label="教程导航"
         >
             {
                 tabs.map((t) => (
                     <a
-                        title={t.label}
-                        href={`/zh/teach-dx/${t.key}`}
-                        class={`px-12 text-[18px] py-4 rounded-full shadow  font-bold
+                        data-key={t.key}
+                        href={hrefOf(t.key)}
+                        class={`px-4 text-sm py-2 rounded-full shadow font-bold mr-2 inline-block
             ${
                 t.key === current.key
                     ? "bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)] text-white"
@@ -106,227 +173,64 @@ canonical.hash = "";
             }
         </nav>
 
-        <article
-            class="w-[900px] mx-auto
-             mt-10 bg-white/70 rounded-3xl p-8 rounded-[40px]
-             border border-3 border-solid border-[#fff] bg-[rgba(255,255,255,0.7)]"
-        >
+        <article class="mx-auto mt-2 bg-white/70 p-2 rounded-[40px] w-full">
             {
-                current.key === "download" && (
-                    <>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/1.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/2.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/3.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/4.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/5.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/6.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/7.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/1/8.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                    </>
-                )
-            }
-
-            {
-                current.key === "login" && (
-                    <>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/2/1.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/2/2.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/2/3.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/2/4.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/2/5.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                    </>
-                )
-            }
-
-            {
-                current.key === "deposit" && (
-                    <>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/3/1.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/3/2.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/3/3.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/3/4.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/3/5.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-dx/3/6.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                    </>
-                )
-            }
-
-            {
-                current.key === "withdraw" && (
-                    <>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/1.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/2.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/3.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/4.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/5.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/6.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/7.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                        <h3>
-                            <img
-                                src="/assets/teach-yh/4/8.png"
-                                alt=""
-                                class="m-auto w-[60%]"
-                            />
-                        </h3>
-                    </>
-                )
+                images.map((src, idx) => (
+                    <figure class="my-4">
+                        <img
+                            class="m-auto w-[90%]"
+                            src={src}
+                            alt={`${current.label} - 第 ${idx + 1} 步`}
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </figure>
+                ))
             }
         </article>
     </section>
+
+    <script is:inline>
+        (function () {
+            function getTabKeyFromPath() {
+                var segs = location.pathname.split("/").filter(Boolean);
+                return segs[segs.length - 1];
+            }
+
+            function centerActive(nav) {
+                if (!nav) return;
+                var tab = getTabKeyFromPath();
+                var active = nav.querySelector(
+                    'a[data-key="' + CSS.escape(tab) + '"]',
+                );
+                if (!active) return;
+
+                // 更稳：用 offsetLeft/offsetWidth 计算
+                var left =
+                    active.offsetLeft +
+                    active.offsetWidth / 2 -
+                    nav.clientWidth / 2;
+                nav.scrollTo({ left: Math.max(0, left), behavior: "auto" });
+            }
+
+            function run() {
+                var nav = document.querySelector("[data-tabs-nav]");
+                if (!nav) return;
+
+                // 两帧，等字体/布局稳定
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        centerActive(nav);
+                    });
+                });
+            }
+
+            // 首次进入
+            document.addEventListener("DOMContentLoaded", run);
+
+            // 如果你启用了 Astro View Transitions，这两个事件能保证“切页后也执行”
+            document.addEventListener("astro:page-load", run);
+            document.addEventListener("astro:after-swap", run);
+        })();
+    </script>
 </BaseLayout>
