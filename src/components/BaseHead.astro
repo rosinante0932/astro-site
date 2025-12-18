@@ -12,7 +12,7 @@ const {
     locale,
     "【易换】全球货币兑换与跨境支付平台，重点服务东南亚市场。支持菲律宾比索、泰铢、越南盾、马来西亚、柬埔寨等主流币种安全极速兑换。全网极低费率，即时到账。立即下载APP！",
   ),
-  image = "/favicon.svg",
+  image = "/favicon.png",
   lang = Astro.currentLocale,
 } = Astro.props;
 const alternates = getAbsoluteLocaleUrlList(Astro.url.pathname);
@@ -24,7 +24,7 @@ const alternates = getAbsoluteLocaleUrlList(Astro.url.pathname);
 <title>{title}</title>
 <meta name="keyword" content={keyword} />
 <meta name="description" content={description} />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.png" type="image/png+xml" />
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 
 {

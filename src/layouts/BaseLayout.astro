@@ -6,7 +6,7 @@ import VConsole from "../components/VConsole.astro";
 import Qrcode from "@/components/Qrcode.vue";
 import api from "@/api";
 const locale: Locale = resolveLocale(Astro.currentLocale);
-const { title, description } = Astro.props;
+const { title, description, keyword } = Astro.props;
 const url = new URL(Astro.url);
 const search = Astro.url.search;
 // console.log(Astro.url.search, "========search");
@@ -76,7 +76,7 @@ const posts = {
 
 <html lang={Astro.currentLocale} class="h-[100%] bg-[#f0f5f9]">
   <head>
-    <BaseHead {title} {description} />
+    <BaseHead {title} {description} {keyword} />
 
     <script is:inline>
       (() => {
@@ -462,7 +462,7 @@ const posts = {
            w-[120px]"
         >
           <Qrcode
-             iconSize="20"
+            iconSize="20"
             client:only
             url="/download"
             size={100}
