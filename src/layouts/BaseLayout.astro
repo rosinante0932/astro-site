@@ -80,8 +80,7 @@ const posts = {
 const floatBtn =
   "mb-[20px] xl:w-[70px] xl:h-[70px] w-10 h-10 rounded-[50%] shadow-[0_16px_24px_0_rgba(19,78,238,0.2)]";
 const navGroup = "group flex flex-col items-center justify-center";
-const navLink =
-  "group-hover:text-[#2996f5] group-hover:font-600";
+const navLink = "group-hover:text-[#2996f5] group-hover:font-600";
 const hoverArrow = "group-hover:opacity-100 opacity-0";
 ---
 
@@ -114,8 +113,7 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
         const LOCALES = ["zh", "en", "th", "ko", "vi", "km"];
         const re = new RegExp(`^\\/(${LOCALES.join("|")})(\\/|$)`);
         const fullPath = location.pathname;
-        const path =
-          fullPath.replace(re, "/").replace(/\/+$/, "") || "/";
+        const path = fullPath.replace(re, "/").replace(/\/+$/, "") || "/";
 
         window.requestAnimationFrame(() => {
           document.querySelectorAll("[data-nav]").forEach((el) => {
@@ -145,134 +143,6 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
             if (arrow) arrow.style.opacity = "1";
           }
         });
-
-        // ---------- scroll header bg ----------
-        if (!(window).__scrollBound) {
-          (window).__scrollBound = true;
-          let ticking = false;
-          const onScroll = () => {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(() => {
-              const oHeader = document.querySelector("header");
-              if (oHeader) {
-                oHeader.style.backgroundColor =
-                  window.scrollY >= 1 ? "#fff" : "transparent";
-              }
-              ticking = false;
-            });
-          };
-          window.addEventListener("scroll", onScroll, { passive: true });
-        }
-
-        // ---------- dropdown hover ----------
-        if (!(window).__teachBound) {
-          (window).__teachBound = true;
-          const dropdown = document.getElementById("teach-dropdown");
-          const menu = document.getElementById("teach-menu");
-          const arrow = document.getElementById("teach-arrow");
-
-          if (dropdown && menu && arrow) {
-            let timer;
-            const open = () => {
-              clearTimeout(timer);
-              menu.classList.remove(
-                "opacity-0",
-                "translate-y-2",
-                "pointer-events-none",
-              );
-              menu.classList.add(
-                "opacity-100",
-                "translate-y-0",
-                "pointer-events-auto",
-              );
-              arrow.style.opacity = "1";
-            };
-
-            const close = () => {
-              timer = setTimeout(() => {
-                menu.classList.add(
-                  "opacity-0",
-                  "translate-y-2",
-                  "pointer-events-none",
-                );
-                menu.classList.remove(
-                  "opacity-100",
-                  "translate-y-0",
-                  "pointer-events-auto",
-                );
-                arrow.style.opacity = "0";
-              }, 120);
-            };
-
-            dropdown.addEventListener("mouseenter", open);
-            dropdown.addEventListener("mouseleave", close);
-          }
-        }
-
-        // ---------- mobile drawer ----------
-        if (!(window).__drawerBound) {
-          (window).__drawerBound = true;
-          const btn = document.getElementById("menuBtn");
-          const dlg = document.getElementById("mobileDrawer");
-          if (!btn || !dlg) return;
-
-          let scrollY = 0;
-          function lockScroll() {
-            scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-            document.body.style.position = "fixed";
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.left = "0";
-            document.body.style.right = "0";
-            document.body.style.width = "100%";
-            document.body.style.overflow = "hidden";
-            document.body.style.touchAction = "none";
-          }
-          function unlockScroll() {
-            const top = document.body.style.top;
-            document.body.style.position = "";
-            document.body.style.top = "";
-            document.body.style.left = "";
-            document.body.style.right = "";
-            document.body.style.width = "";
-            document.body.style.overflow = "";
-            document.body.style.touchAction = "";
-            const y = top ? Math.abs(parseInt(top, 10)) : scrollY;
-            window.scrollTo(0, y);
-          }
-
-          function openDrawer() {
-            if (typeof dlg.showModal === "function") dlg.showModal();
-            else dlg.setAttribute("open", "");
-            lockScroll();
-            btn.setAttribute("aria-expanded", "true");
-          }
-
-          function closeDrawer() {
-            if (dlg.open) dlg.close();
-            unlockScroll();
-            btn.setAttribute("aria-expanded", "false");
-            btn.focus();
-          }
-
-          btn.addEventListener("click", openDrawer);
-
-          dlg.addEventListener("click", (e) => {
-            const target = e.target;
-            if (target && target.closest && target.closest("[data-close]")) {
-              closeDrawer();
-            }
-          });
-
-          dlg.addEventListener("close", () => {
-            unlockScroll();
-            btn.setAttribute("aria-expanded", "false");
-          });
-
-          // 调试
-          window.__openDrawer = openDrawer;
-          window.__closeDrawer = closeDrawer;
-        }
       })();
     </script>
   </head>
@@ -306,22 +176,30 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
         </div>
 
         <div class={navGroup}>
-          <a href={href("/download")} data-nav="/download" class={navLink}>下载APP</a>
+          <a href={href("/download")} data-nav="/download" class={navLink}
+            >下载APP</a
+          >
           <img src="/assets/header/hover.svg" alt="" class={hoverArrow} />
         </div>
 
         <div class={navGroup}>
-          <a href={href("/aboutus")} data-nav="/aboutus" class={navLink}>关于我们</a>
+          <a href={href("/aboutus")} data-nav="/aboutus" class={navLink}
+            >关于我们</a
+          >
           <img src="/assets/header/hover.svg" alt="" class={hoverArrow} />
         </div>
 
         <div class={navGroup}>
-          <a href={href("/service")} data-nav="/service" class={navLink}>易换服务</a>
+          <a href={href("/service")} data-nav="/service" class={navLink}
+            >易换服务</a
+          >
           <img src="/assets/header/hover.svg" alt="" class={hoverArrow} />
         </div>
 
         <div class={navGroup}>
-          <a href={href("/contactus")} data-nav="/contactus" class={navLink}>联系我们</a>
+          <a href={href("/contactus")} data-nav="/contactus" class={navLink}
+            >联系我们</a
+          >
           <img src="/assets/header/hover.svg" alt="" class={hoverArrow} />
         </div>
 
@@ -434,13 +312,41 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
         </div>
 
         <nav class="px-5 pb-8">
-          <a data-nav="/" class="block py-4 text-base text-[#0f172a]" href={href("/")}>首页</a>
-          <a data-nav="/download" class="block py-4 text-base text-[#0f172a]" href={href("/download")}>下载APP</a>
-          <a data-nav="/aboutus" class="block py-4 text-base text-[#0f172a]" href={href("/aboutus")}>关于我们</a>
-          <a data-nav="/service" class="block py-4 text-base text-[#0f172a]" href={href("/service")}>易换服务</a>
-          <a data-nav="/contactus" class="block py-4 text-base text-[#0f172a]" href={href("/contactus")}>联系我们</a>
-          <a data-nav="/teach-yh/register" class="block py-4 text-base text-[#0f172a]" href={href("/teach-yh/register")}>新手教程</a>
-          <a data-nav="/qa" class="block py-4 text-base text-[#0f172a]" href={href("/qa")}>常见问题</a>
+          <a
+            data-nav="/"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/")}>首页</a
+          >
+          <a
+            data-nav="/download"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/download")}>下载APP</a
+          >
+          <a
+            data-nav="/aboutus"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/aboutus")}>关于我们</a
+          >
+          <a
+            data-nav="/service"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/service")}>易换服务</a
+          >
+          <a
+            data-nav="/contactus"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/contactus")}>联系我们</a
+          >
+          <a
+            data-nav="/teach-yh/register"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/teach-yh/register")}>新手教程</a
+          >
+          <a
+            data-nav="/qa"
+            class="block py-4 text-base text-[#0f172a]"
+            href={href("/qa")}>常见问题</a
+          >
         </nav>
       </aside>
     </dialog>
@@ -452,13 +358,21 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
       <ul class="fixed z-10 xl:right-10 right-2 xl:bottom-10 bottom-15">
         <a href={posts.tg} target="_blank" rel="noopener noreferrer">
           <li class={floatBtn}>
-            <img src="/assets/home/16.svg" alt="telegram" class="xl:w-[70px] xl:h-[70px] w-10 h-10" />
+            <img
+              src="/assets/home/16.svg"
+              alt="telegram"
+              class="xl:w-[70px] xl:h-[70px] w-10 h-10"
+            />
           </li>
         </a>
 
         <a href={posts.chatUrl} target="_blank" rel="noopener noreferrer">
           <li class={floatBtn}>
-            <img src="/assets/home/17.svg" alt="客服链接" class="xl:w-[70px] xl:h-[70px] w-10 h-10" />
+            <img
+              src="/assets/home/17.svg"
+              alt="客服链接"
+              class="xl:w-[70px] xl:h-[70px] w-10 h-10"
+            />
           </li>
         </a>
 
@@ -468,7 +382,11 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
               bg-[linear-gradient(127.31deg,#3feae4_-9.27%,#5383ff_95.74%)]
               xl:w-[70px] xl:h-[70px] w-10 h-10 flex items-center justify-center"
           >
-            <img src="/assets/home/18.svg" alt="下载" class="xl:w-[40px] xl:h-[40px] w-6 h-6" />
+            <img
+              src="/assets/home/18.svg"
+              alt="下载"
+              class="xl:w-[40px] xl:h-[40px] w-6 h-6"
+            />
           </li>
         </a>
       </ul>
@@ -476,7 +394,9 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
 
     <!-- PC Footer -->
     <footer class="xs:hidden sm:hidden md:hidden lg:hidden xl:block bg-[#fff]">
-      <div class="flex container lg:max-w-[1280px] mx-auto justify-between items-center">
+      <div
+        class="flex container lg:max-w-[1280px] mx-auto justify-between items-center"
+      >
         <dl class="flex gap-10 items-center justify-between py-[34px]">
           <dt class="w-[100px] flex items-center">
             <img src="/assets/yhicon.png" alt="" class="w-[80px] h-[80px]" />
@@ -488,7 +408,9 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
             <a href={href("/qa")} data-nav="/qa">常见问题</a>
             <a href={href("/download")} data-nav="/download">下载APP</a>
             <a href={href("/service")} data-nav="/service">易换服务</a>
-            <a href={href("/teach-yh/register")} data-nav="/teach-yh/register">新手教程</a>
+            <a href={href("/teach-yh/register")} data-nav="/teach-yh/register"
+              >新手教程</a
+            >
           </dd>
         </dl>
 
@@ -535,9 +457,149 @@ const hoverArrow = "group-hover:opacity-100 opacity-0";
         <a href={href("/qa")} data-nav="/qa">常见问题</a>
         <a href={href("/download")} data-nav="/download">下载APP</a>
         <a href={href("/service")} data-nav="/service">易换服务</a>
-        <a href={href("/teach-yh/register")} data-nav="/teach-yh/register">新手教程</a>
+        <a href={href("/teach-yh/register")} data-nav="/teach-yh/register"
+          >新手教程</a
+        >
       </nav>
     </footer>
+
+    <script is:inline>
+      (function () {
+        // ---------- scroll header bg ----------
+        if (!window.__scrollBound) {
+          window.__scrollBound = true;
+          let ticking = false;
+          const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+              const oHeader = document.querySelector("header");
+              if (oHeader) {
+                oHeader.style.backgroundColor =
+                  window.scrollY >= 1 ? "#fff" : "transparent";
+              }
+              ticking = false;
+            });
+          };
+          window.addEventListener("scroll", onScroll, { passive: true });
+        }
+
+        // ---------- dropdown hover ----------
+        if (!window.__teachBound) {
+          window.__teachBound = true;
+          const dropdown = document.getElementById("teach-dropdown");
+          const menu = document.getElementById("teach-menu");
+          const arrow = document.getElementById("teach-arrow");
+
+          if (dropdown && menu && arrow) {
+            let timer;
+            const open = () => {
+              clearTimeout(timer);
+              menu.classList.remove(
+                "opacity-0",
+                "translate-y-2",
+                "pointer-events-none",
+              );
+              menu.classList.add(
+                "opacity-100",
+                "translate-y-0",
+                "pointer-events-auto",
+              );
+              arrow.style.opacity = "1";
+            };
+
+            const close = () => {
+              timer = setTimeout(() => {
+                menu.classList.add(
+                  "opacity-0",
+                  "translate-y-2",
+                  "pointer-events-none",
+                );
+                menu.classList.remove(
+                  "opacity-100",
+                  "translate-y-0",
+                  "pointer-events-auto",
+                );
+                arrow.style.opacity = "0";
+              }, 120);
+            };
+
+            dropdown.addEventListener("mouseenter", open);
+            dropdown.addEventListener("mouseleave", close);
+          }
+        }
+
+        // ---------- mobile drawer ----------
+        if (!window.__drawerBound) {
+          window.__drawerBound = true;
+          const btn = document.getElementById("menuBtn");
+          const dlg = document.getElementById("mobileDrawer");
+
+          console.log(dlg);
+          console.log(btn);
+
+          if (!btn || !dlg) {
+            return false;
+          }
+
+          let scrollY = 0;
+          function lockScroll() {
+            scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+            document.body.style.position = "fixed";
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.left = "0";
+            document.body.style.right = "0";
+            document.body.style.width = "100%";
+            document.body.style.overflow = "hidden";
+            document.body.style.touchAction = "none";
+          }
+          function unlockScroll() {
+            const top = document.body.style.top;
+            document.body.style.position = "";
+            document.body.style.top = "";
+            document.body.style.left = "";
+            document.body.style.right = "";
+            document.body.style.width = "";
+            document.body.style.overflow = "";
+            document.body.style.touchAction = "";
+            const y = top ? Math.abs(parseInt(top, 10)) : scrollY;
+            window.scrollTo(0, y);
+          }
+
+          function openDrawer() {
+            if (typeof dlg.showModal === "function") dlg.showModal();
+            else dlg.setAttribute("open", "");
+            lockScroll();
+            btn.setAttribute("aria-expanded", "true");
+          }
+
+          function closeDrawer() {
+            if (dlg.open) dlg.close();
+            unlockScroll();
+            btn.setAttribute("aria-expanded", "false");
+            btn.focus();
+          }
+
+          btn.addEventListener("click", openDrawer);
+
+          dlg.addEventListener("click", (e) => {
+            const target = e.target;
+            if (target && target.closest && target.closest("[data-close]")) {
+              closeDrawer();
+            }
+          });
+
+          dlg.addEventListener("close", () => {
+            unlockScroll();
+            btn.setAttribute("aria-expanded", "false");
+          });
+
+          // 调试
+          window.__openDrawer = openDrawer;
+          window.__closeDrawer = closeDrawer;
+        }
+      })();
+    </script>
   </body>
 </html>
 
